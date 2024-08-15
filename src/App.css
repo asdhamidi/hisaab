@@ -1,38 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@100..900&display=swap');
+:root {
+  height: 100vh;
+  box-sizing: border-box;
+  transition: all ease-in-out 250ms;
+  font-family: 'Lexend Mega', sans-serif;
+  user-select: none;
+  background-color: var(--text-color-highlight)FFF;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23BBBBBB' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+  --highlight: rgb(138, 43, 226);
+  --text-color-highlight: #FFF;
+  --text-color: #000;
+  --text-color-light: #777;
+  --link-color: #007;
+}
+
+.dark {
+  --highlight: rgb(255, 236, 0);
+  --text-color: #fff;
+  --text-color-highlight: #121212;
+  --link-color: #BBF;
+  --text-color-light: #AAA;
+  background-color: #121212;
+  color: var(--text-color-highlight);
+  background-color: #000000;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+h1, h2, p, a, button, small {
+  color: var(--text-color)
+}
+
+input, select {
+  background-color: var(--text-color-highlight);
+  color: var(--text-color);
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  width: 100vw;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding-top: 0;
+  margin: 0;
+  
+}
+
+
+.front-page, .front-page-options {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-self: center;
+  backdrop-filter: blur(2px);
+  background-color: transparent;
+  max-width: 36ch;  
+  flex-direction: row;
 }
 
-.App-link {
-  color: #61dafb;
+.front-page {
+  padding: 1rem;
+  gap: 1rem;
+  height: fit-content;
+  outline: 2px solid var(--text-color);
+  box-shadow: 7px 7px var(--text-color);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.headings h1 {font-size: 1.5rem;}
+.headings {
+  rotate: -90deg;
+  width: 1ch;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.front-page-contents {
+  width: 100%;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+  .front-page input, select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border: none;
+  color: var(--text-color);
+  border: 1px solid #BBB;
+}
+
+select {
+  width: auto;
+  margin-right: 0.5rem;
+  border: 2px solid var(--text-color);
+}
+
+.front-page input:hover {
+  outline: none;
+  border-color: #888;
+}
+
+.front-page input:focus-visible {
+  outline: none;
+  border-color: var(--text-color);
+}
+
+.front-page .submit-btn {
+  width: 100%;
+  border: 3px solid greenyellow;
+}
+
+.front-page .submit-btn:hover {
+  background-color: greenyellow;
+}
+.front-page-options {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--text-color-highlight);
+}
+
+.front-page-options button{
+  flex: 1;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+}
+
+.nav-controls button  {
+  margin: 0.5rem;
+}
+.active-btn {
+  background-color: greenyellow;
+  color: var(--text-color-highlight);
+}
+
+button, select {
+  border: none;
+  padding: 0.5rem;
+  font-weight: bold;
+  border: 3px solid var(--text-color);
+  background-color: var(--text-color-highlight);
+  transition: all ease-in-out 250ms;
+  color: var(--text-color);
+  box-shadow: 5px 5px var(--text-color);
+}
+
+button:hover {
+  border: 3px solid var(--text-color);
+}
+
+.board {
+  width: 100%;
+}
+
+nav  {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  position: sticky;
+  background-color: var(--text-color-highlight);
+  top: 0;
+  outline: 2px solid var(--text-color);
+  z-index: 3;
+}
+
+.entries {
+  border-spacing: 0;
+}
+
+.entry {
+  display: flex;
+  background-color: var(--text-color-highlight);
+}
+
+em {
+  border-right: 1px solid black;
+  margin: 0;
+  flex: 1;
+  text-align: center;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  padding: 0.25rem;
+}
+
+.entry-header {
+  
+}
+.entry-header em {
+  font-weight: bold;
+  background-color: #DDD;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  background-color: #EEE;
+  box-shadow: 0px 3px var(--text-color);
+}
+
+.summary-comp {
+  font-weight: bold;
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.summary-comp:first-child {
+  border-right: 1px solid black;
+}
+
+.summary-comp:last-child {
+  text-align: right;
+}
+
+.top {
+  position: sticky;
+  top: 0;
 }
