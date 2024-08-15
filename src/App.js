@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import axiosInstance from "./components/api-handling";
 import Login from "./components/login";
 import Board from "./components/board";
+import Editor from "./components/editor";
 import "./App.css";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [editor, setEditor] = useState(false);
   const [entries, setEntries] = useState([]);
+
   const loadEntries = () => {
     axiosInstance
       .get("/entries")
@@ -15,7 +18,13 @@ function App() {
   };
 
   const makeEntry = (entry) => {
-    axiosInstance.post("/entries", entry).catch((err) => console.error(err));
+    axiosInstance
+      .post("/entries", entry)
+      .then(() => {
+        loadEntries();
+        setEditor(false);
+      })
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
@@ -24,25 +33,23 @@ function App() {
       setLoggedIn(true);
       loadEntries();
     }
-
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-
-    if (mq.matches) {
-      document.body.classList.toggle("dark");
-    }
   }, []);
 
   return (
     <div className="App">
+      {editor === true && (
+        <Editor makeEntry={makeEntry} setEditor={setEditor} />
+      )}
       {loggedIn === false && (
         <Login setloggedIn={setLoggedIn} loadEntries={loadEntries} />
       )}
-      {loggedIn === true && (
+      {loggedIn === true && editor === false && (
         <Board
           entries={entries}
           makeEntry={makeEntry}
           loadEntries={loadEntries}
           setLoggedIn={setLoggedIn}
+          setEditor={setEditor}
         />
       )}
     </div>

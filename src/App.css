@@ -92,7 +92,7 @@ body {
   gap: 1rem;
 }
 
-  .front-page input, select {
+  .front-page input, select, .editor input  {
   width: 100%;
   box-sizing: border-box;
   padding: 0.5rem;
@@ -103,7 +103,6 @@ body {
 
 select {
   width: auto;
-  margin-right: 0.5rem;
   border: 2px solid var(--text-color);
 }
 
@@ -189,6 +188,7 @@ nav  {
 .entry {
   display: flex;
   background-color: var(--text-color-highlight);
+  border-bottom: 1px solid #DDD;
 }
 
 em {
@@ -233,11 +233,64 @@ em {
   border-right: 1px solid black;
 }
 
-.summary-comp:last-child {
+.owe {
   text-align: right;
 }
 
 .top {
   position: sticky;
   top: 0;
+}
+
+.editor {
+  margin-top: 20ch;
+  background-color: #FFF;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  outline: 3px solid black;
+  box-shadow: 7px 7px black;
+}
+
+input {
+  padding: 1rem;
+}
+
+.editor-controls {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edt-chk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+}
+
+label {
+  width: 100%;
+}
+
+.pop {
+  width: 0;
+  transform: translateX(100%);
+  padding: 0.25rem 1rem ;
+  height: 0;
+  transition: all ease-in-out 100ms;
+}
+
+.pop-active {
+  width: fit-content;
+  height: auto;
+  transform: translateX(0);
+}
+
+.owe::after {
+  content: " >";
 }

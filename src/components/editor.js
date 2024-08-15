@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Editor = ({ entry, makeEntry, setEditor, loadEntries }) => {
+const Editor = ({ entry, makeEntry, setEditor }) => {
   const [updatedEntry, setUpdatedEntry] = useState(
     entry || {
       items: "",
@@ -10,6 +10,7 @@ const Editor = ({ entry, makeEntry, setEditor, loadEntries }) => {
     }
   );
   const [owedByAll, setOwedByAll] = useState(updatedEntry.owed_all || false);
+  const [error, setError] = useState("");
 
   const handleOwedByChange = (person, isChecked) => {
     let newOwedBy;
@@ -42,44 +43,58 @@ const Editor = ({ entry, makeEntry, setEditor, loadEntries }) => {
     }
   };
 
+  const handleSubmit = () => {
+    if (updatedEntry.items === "" || updatedEntry.price === "") {
+      setError("Items and price fields cannot be empty.");
+      return;
+    }
+    if (!updatedEntry.owed_all && updatedEntry.owed_by.length === 0) {
+      setError("Please select at least one person who owes.");
+      return;
+    }
+
+    // Clear the error and proceed with submission
+    setError("");
+    makeEntry(updatedEntry);
+    setEditor(false);
+  };
+
   return (
     <div className="editor">
       <div className="editor-controls">
         <button onClick={() => setEditor(false)}>back</button>
-        <button
-          onClick={() => {
-            makeEntry(updatedEntry);
-            setEditor(false);
-            loadEntries();
-          }}
-        >
-          submit
-        </button>
+        <button onClick={handleSubmit}>submit</button>
       </div>
-      <label>items</label>
-      <input
-        placeholder="items"
-        value={updatedEntry.items}
-        onChange={(event) =>
-          setUpdatedEntry((prevState) => ({
-            ...prevState,
-            items: event.target.value,
-          }))
-        }
-      />
-      <label>price</label>
-      <input
-        placeholder="price"
-        value={updatedEntry.price}
-        onChange={(event) =>
-          setUpdatedEntry((prevState) => ({
-            ...prevState,
-            price: event.target.value,
-          }))
-        }
-      />
-      <label>owed by</label>
-      <div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <label>
+        items
+        <input
+          placeholder="items"
+          type="text"
+          value={updatedEntry.items}
+          onChange={(event) =>
+            setUpdatedEntry((prevState) => ({
+              ...prevState,
+              items: event.target.value,
+            }))
+          }
+        />
+      </label>
+      <label>
+        price
+        <input
+          placeholder="price"
+          type="number"
+          value={updatedEntry.price}
+          onChange={(event) =>
+            setUpdatedEntry((prevState) => ({
+              ...prevState,
+              price: event.target.value,
+            }))
+          }
+        />
+      </label>
+      <div className="edt-chk">
         <input
           type="checkbox"
           checked={owedByAll}
@@ -87,7 +102,7 @@ const Editor = ({ entry, makeEntry, setEditor, loadEntries }) => {
         />
         <label>Owed by all</label>
       </div>
-      <div>
+      <div className="edt-chk">
         <input
           type="checkbox"
           disabled={owedByAll}

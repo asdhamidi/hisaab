@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import Popup from "./pop";
 
 const Summary = ({ entries }) => {
+  const [pop, setPop] = useState("");
   const calculateSpent = () => {
-    const currentUser = localStorage.getItem("username");
+    const currentUser = localStorage.getItem("user");
     let totalSpent = 0;
 
     entries.forEach((entry) => {
@@ -15,7 +17,7 @@ const Summary = ({ entries }) => {
   };
 
   const calculateOwed = () => {
-    const currentUser = localStorage.getItem("username");
+    const currentUser = localStorage.getItem("user");
     let totalOwed = 0;
 
     entries.forEach((entry) => {
@@ -26,13 +28,22 @@ const Summary = ({ entries }) => {
       }
     });
 
-    return totalOwed;
+    return Math.round(totalOwed);
   };
 
   return (
     <div className="summary">
-      <div className="summary-comp">You have spent: {calculateSpent()}</div>
-      <div className="summary-comp">You owe: {calculateOwed()}</div>
+      <div className="summary-comp">You spent: {calculateSpent()}</div>
+      <div
+        className="summary-comp owe"
+        onClick={() => {
+          if (pop === "pop") setPop("pop pop-active");
+          else setPop("pop");
+        }}
+      >
+        You owe: {calculateOwed()}
+      </div>
+      <Popup entries={entries} pop={pop} />
     </div>
   );
 };
