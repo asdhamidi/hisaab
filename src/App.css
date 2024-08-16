@@ -139,9 +139,6 @@ select {
   border: none;
 }
 
-.nav-controls button  {
-  margin: 0.5rem;
-}
 .active-btn {
   background-color: greenyellow;
   color: var(--text-color-highlight);
@@ -278,19 +275,56 @@ label {
 }
 
 .pop {
-  width: 0;
-  transform: translateX(100%);
-  padding: 0.25rem 1rem ;
-  height: 0;
+  position: absolute;
+  padding: 0;
   transition: all ease-in-out 100ms;
+  top: 20vh;
+  height: auto;
+  width: auto;
+  background-color: #FFF;
+  padding: 1rem 0;
+  outline: 3px solid black;
+  box-shadow: 6px 6px black;
+  right: -110%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.pop h1 {
+  transform: rotate(-90deg);
+  margin: 0;
+  border-bottom: 3px solid black;
+  padding: 0;
+  color: red;
 }
 
 .pop-active {
-  width: fit-content;
-  height: auto;
-  transform: translateX(0);
+  margin: auto;
+  right: 0;
+  left: 50%;
 }
 
 .owe::after {
   content: " >";
+}
+
+.logout {
+  border-color: red;
+}
+
+.new-entry {
+  border-color: greenyellow;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+h2 {
+  margin: 0;
 }

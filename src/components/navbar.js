@@ -24,10 +24,10 @@ const Navbar = ({
   return (
     <div className="top">
       <nav>
-        <h1>hisaab</h1>
+        <h1>hi, {localStorage.getItem("user")}!</h1>
         <div className="nav-controls">
-          <button onClick={() => setEditor(true)}>new entry</button>
           <select
+            className="month"
             name="month"
             id="month"
             value={selectedMonth}
@@ -56,7 +56,11 @@ const Navbar = ({
             <option value="11">nov</option>
             <option value="12">dec</option>
           </select>
+          <button className="new-entry" onClick={() => setEditor(true)}>
+            new entry
+          </button>
           <button
+            className="logout"
             onClick={() => {
               setLoggedIn(false);
               localStorage.removeItem("token");

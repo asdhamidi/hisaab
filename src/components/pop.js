@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-const Popup = ({ entries, pop }) => {
+const Popup = ({ entries, pop, setPop }) => {
   const [details, setDetails] = useState([]);
   useEffect(() => {
+    let currentUser = localStorage.getItem("user");
     let people = [
       { name: "asad", amt: 0 },
       { name: "aaryan", amt: 0 },
@@ -11,11 +12,10 @@ const Popup = ({ entries, pop }) => {
       { name: "saurav", amt: 0 },
     ];
 
-    people = people.filter((p) => p.name !== localStorage.getItem("user"));
+    people = people.filter((p) => p.name !== currentUser);
 
-    const modEntries = entries.filter(
-      (e) => e.paid_by !== localStorage.getItem("user")
-    );
+    let modEntries = entries.filter((e) => e.paid_by !== currentUser);
+    modEntries = modEntries.filter((e) => e.owed_by.includes(currentUser));
 
     people.forEach((p) => {
       let totalOwed = 0;
@@ -34,11 +34,22 @@ const Popup = ({ entries, pop }) => {
 
   return (
     <div className={pop}>
-      {details.map((people) => (
-        <div>
-          {people.name}: {people.amt}
-        </div>
-      ))}
+      <h1
+        onClick={() => {
+          if (pop === "pop") setPop("pop pop-active");
+          else setPop("pop");
+        }}
+      >
+        close
+      </h1>
+      <div>
+        <h2>breakup:</h2>
+        {details.map((people) => (
+          <div key={people.name}>
+            {people.name}: {people.amt}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
