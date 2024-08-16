@@ -57,7 +57,7 @@ const Navbar = ({
             <option value="12">dec</option>
           </select>
           <button className="new-entry" onClick={() => setEditor(true)}>
-            new entry
+            new
           </button>
           <button
             className="logout"

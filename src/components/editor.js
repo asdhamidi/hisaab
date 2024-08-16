@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Editor = ({ entry, makeEntry, setEditor }) => {
+const Editor = ({ entry, makeEntry, setEditor, updateEntry }) => {
   const [updatedEntry, setUpdatedEntry] = useState(
     entry || {
       items: "",
@@ -63,7 +63,12 @@ const Editor = ({ entry, makeEntry, setEditor }) => {
     <div className="editor">
       <div className="editor-controls">
         <button onClick={() => setEditor(false)}>back</button>
-        <button onClick={handleSubmit}>submit</button>
+        {entry === null && <button onClick={handleSubmit}>submit</button>}
+        {entry !== null && (
+          <button onClick={() => updateEntry(entry._id, updatedEntry)}>
+            update
+          </button>
+        )}
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <label>

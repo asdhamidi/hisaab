@@ -9,6 +9,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [editor, setEditor] = useState(false);
   const [entries, setEntries] = useState([]);
+  const [currentEntry, setCurrentEntry] = useState(null);
 
   const loadEntries = () => {
     axiosInstance
@@ -27,6 +28,16 @@ function App() {
       .catch((err) => console.error(err));
   };
 
+  const updateEntry = (id, entry) => {
+    axiosInstance
+      .put("/entries/" + id, entry)
+      .then(() => {
+        loadEntries();
+        setEditor(false);
+      })
+      .catch((err) => console.error(err));
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -38,7 +49,12 @@ function App() {
   return (
     <div className="App">
       {editor === true && (
-        <Editor makeEntry={makeEntry} setEditor={setEditor} />
+        <Editor
+          makeEntry={makeEntry}
+          setEditor={setEditor}
+          entry={currentEntry}
+          updateEntry={updateEntry}
+        />
       )}
       {loggedIn === false && (
         <Login setloggedIn={setLoggedIn} loadEntries={loadEntries} />
@@ -50,6 +66,7 @@ function App() {
           loadEntries={loadEntries}
           setLoggedIn={setLoggedIn}
           setEditor={setEditor}
+          setCurrentEntry={setCurrentEntry}
         />
       )}
     </div>

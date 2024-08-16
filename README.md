@@ -1,6 +1,6 @@
 # Hisaab App
 
-**Hisaab** is a React-based web application designed for managing shared expenses among friends or groups. Originally created as a website for my flatmates to manage and log our joint expenses, the app allows users to add, track, and manage entries for items purchased, and calculates how much each person owes. The design of the app follows the brutalism web design principles, emphasizing functionality with a minimalist and utilitarian aesthetic.
+**Hisaab** is a React-based web application which I created as a website for my flatmates to manage and log our joint expenses, the app allows users to add, track, and manage entries for items purchased, and calculates how much each person owes. The design of the app follows brutalism web design principles, emphasizing functionality with a minimalist and utilitarian aesthetic.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@
 ## Features
 
 - **User Authentication**: Users can log in using their credentials.
-- **Add/Edit Entries**: Users can add new entries and specify the items, price, who paid, and who owes.
+- **Add/Edit Entries**: Users can add new entries and specify the items, price, who paid, and who owes. All entries made by the current user are highlighted with a green shade. Clicking on these entries opens up an editing window, allowing the user to make changes.
 - **Owed By All**: A convenient feature that automatically selects all group members as owing.
 - **Monthly Filtering**: Entries can be filtered by month.
 - **Expense Summary**: Provides a summary of how much each person owes.
@@ -62,8 +62,9 @@
 
 1. **Login**: Upon starting the app, you'll be prompted to log in. Enter your credentials.
 2. **Add Entry**: Use the "new entry" button to add a new entry. Fill out the form, including items, price, who paid, and who owes.
-3. **Filter Entries**: Use the dropdown to filter entries by month.
-4. **Logout**: Click the logout button to end your session.
+3. **Edit Entry**: Entries that you have created are highlighted in green. Click on any of these entries to open the editing window and make changes.
+4. **Filter Entries**: Use the dropdown to filter entries by month.
+5. **Logout**: Click the logout button to end your session.
 
 ## API Handling
 
