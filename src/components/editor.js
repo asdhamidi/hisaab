@@ -66,6 +66,21 @@ const Editor = ({
     setEditor(false);
   };
 
+  const handleUpdate = () => {
+    console.log("upd");
+    
+    if (
+      entry["items"] !== updatedEntry["items"] ||
+      entry["price"] !== updatedEntry["price"] ||
+      entry["owed_by"] !== updatedEntry["owed_by"] ||
+      entry["owed_all"] !== updatedEntry["owed_all"]
+    )
+      updateEntry(entry._id, updatedEntry);
+    else {
+      setEditor(false);
+    }
+  };
+
   return (
     <div className="editor">
       <div className="editor-controls">
@@ -78,11 +93,7 @@ const Editor = ({
           back
         </button>
         {entry === null && <button onClick={handleSubmit}>submit</button>}
-        {entry !== null && (
-          <button onClick={() => updateEntry(entry._id, updatedEntry)}>
-            update
-          </button>
-        )}
+        {entry !== null && <button onClick={handleUpdate}>update</button>}
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <label>
