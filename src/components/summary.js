@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from "./pop";
+import OweDetails from "./owe-details";
 
 const Summary = ({ entries }) => {
   const [pop, setPop] = useState("pop");
@@ -21,7 +21,10 @@ const Summary = ({ entries }) => {
     let totalOwed = 0;
 
     entries.forEach((entry) => {
-      if (entry.paid_by !== currentUser && entry.owed_by.includes(currentUser)) {
+      if (
+        entry.paid_by !== currentUser &&
+        entry.owed_by.includes(currentUser)
+      ) {
         if (entry.owed_by.length !== 0)
           totalOwed += Number(entry.price) / entry.owed_by.length;
         else totalOwed += Number(entry.price) / 5;
@@ -43,7 +46,16 @@ const Summary = ({ entries }) => {
       >
         You owe: {calculateOwed()}
       </div>
-      <Popup entries={entries} pop={pop} setPop={setPop}/>
+      {pop.includes("pop-active") && (
+        <div
+          className="blur"
+          onClick={() => {
+            if (pop === "pop") setPop("pop pop-active");
+            else setPop("pop");
+          }}
+        ></div>
+      )}
+      <OweDetails entries={entries} pop={pop} setPop={setPop} />
     </div>
   );
 };

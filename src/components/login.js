@@ -107,7 +107,9 @@ const Login = ({ loadEntries, setloggedIn }) => {
                   type="text"
                   placeholder="username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) =>
+                    setUsername(e.target.value.toLowerCase().trim())
+                  }
                   required
                 />
                 <input
@@ -128,7 +130,9 @@ const Login = ({ loadEntries, setloggedIn }) => {
                   type="text"
                   placeholder="username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) =>
+                    setUsername(e.target.value.toLowerCase().trim())
+                  }
                   required
                 />
                 <input
@@ -139,10 +143,10 @@ const Login = ({ loadEntries, setloggedIn }) => {
                   required
                 />
                 <input
-                  type="text"
+                  type="number"
                   placeholder="registration code"
                   value={registrationCode}
-                  onChange={(e) => setRegistrationCode(e.target.value)}
+                  onChange={(e) => setRegistrationCode(e.target.value.trim())}
                   required
                 />
                 <button className="submit-btn" onClick={handleRegistration}>

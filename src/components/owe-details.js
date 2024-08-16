@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Popup = ({ entries, pop, setPop }) => {
+const OweDetails = ({ entries, pop, setPop }) => {
   const [details, setDetails] = useState([]);
   useEffect(() => {
     let currentUser = localStorage.getItem("user");
@@ -42,11 +42,12 @@ const Popup = ({ entries, pop, setPop }) => {
       >
         close
       </h1>
-      <div>
-        <h2>breakup:</h2>
+      <div className="pop-details">
+        <h2>what you owe to each:</h2>
+        <hr style={{ width: "100%" }}></hr>
         {details.map((people) => (
           <div key={people.name}>
-            {people.name}: {people.amt}
+            {people.name}: <b>{people.amt}</b>
           </div>
         ))}
       </div>
@@ -54,4 +55,4 @@ const Popup = ({ entries, pop, setPop }) => {
   );
 };
 
-export default Popup;
+export default OweDetails;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Summary from "./summary";
 
 const Navbar = ({
   setEditor,
@@ -57,7 +56,7 @@ const Navbar = ({
             <option value="12">dec</option>
           </select>
           <button className="new-entry" onClick={() => setEditor(true)}>
-            new
+            new entry
           </button>
           <button
             className="logout"
@@ -71,7 +70,6 @@ const Navbar = ({
           </button>
         </div>
       </nav>
-      <Summary entries={filteredEntries} />
       <div className="entry entry-header">
         <em>items</em>
         <em>price</em>

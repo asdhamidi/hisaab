@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import Navbar from "./navbar";
+import Summary from "./summary";
+import Popup from "./pop-up";
 
-const Board = ({
-  entries,
-  makeEntry,
-  loadEntries,
-  setLoggedIn,
-  setEditor,
-  setCurrentEntry,
-}) => {
+const Board = ({ entries, setLoggedIn, setEditor, setCurrentEntry }) => {
   const [filteredEntries, setFilteredEntries] = useState(entries);
+  const [popUpEntry, setPopUpEntry] = useState({});
+  const [popUpVisible, setPopUpVisible] = useState("pop-up-details");
 
   return (
     <div className="board">
@@ -28,7 +25,9 @@ const Board = ({
 
           return (
             <div
-              className={`entry ${isUserEntry ? "user-entry" : ""}`}
+              className={`entry ${isUserEntry ? "user-entry" : ""} ${
+                entry.updated_at !== "" ? "updated" : ""
+              }`}
               key={entry._id}
               onClick={
                 isUserEntry
@@ -36,7 +35,10 @@ const Board = ({
                       setCurrentEntry(entry);
                       setEditor(true);
                     }
-                  : undefined
+                  : () => {
+                      setPopUpEntry(entry);
+                      setPopUpVisible("pop-up-details pop-up-details-active");
+                    }
               }
             >
               <em>{entry.items}</em>
@@ -51,6 +53,22 @@ const Board = ({
           );
         })}
       </div>
+      <Summary entries={filteredEntries} />
+      {popUpVisible.includes("pop-up-details-active") && (
+        <div
+          className="blur"
+          onClick={() => {
+            setPopUpVisible("pop-up-details");
+            setPopUpEntry({});
+          }}
+        ></div>
+      )}
+      <Popup
+        entry={popUpEntry}
+        popUpVisible={popUpVisible}
+        setPopUpVisible={setPopUpVisible}
+        setPopUpEntry={setPopUpEntry}
+      />
     </div>
   );
 };

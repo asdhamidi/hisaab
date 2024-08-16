@@ -54,6 +54,7 @@ function App() {
           setEditor={setEditor}
           entry={currentEntry}
           updateEntry={updateEntry}
+          setCurrentEntry={setCurrentEntry}
         />
       )}
       {loggedIn === false && (

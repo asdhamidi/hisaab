@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 
-const Editor = ({ entry, makeEntry, setEditor, updateEntry }) => {
+const Editor = ({
+  entry,
+  makeEntry,
+  setEditor,
+  updateEntry,
+  setCurrentEntry,
+}) => {
   const [updatedEntry, setUpdatedEntry] = useState(
     entry || {
       items: "",
       price: "",
+      notes: "",
       owed_by: [],
       owed_all: false,
     }
@@ -62,7 +69,14 @@ const Editor = ({ entry, makeEntry, setEditor, updateEntry }) => {
   return (
     <div className="editor">
       <div className="editor-controls">
-        <button onClick={() => setEditor(false)}>back</button>
+        <button
+          onClick={() => {
+            setEditor(false);
+            setCurrentEntry(null);
+          }}
+        >
+          back
+        </button>
         {entry === null && <button onClick={handleSubmit}>submit</button>}
         {entry !== null && (
           <button onClick={() => updateEntry(entry._id, updatedEntry)}>
@@ -95,6 +109,20 @@ const Editor = ({ entry, makeEntry, setEditor, updateEntry }) => {
             setUpdatedEntry((prevState) => ({
               ...prevState,
               price: event.target.value,
+            }))
+          }
+        />
+      </label>
+      <label>
+        notes
+        <input
+          placeholder="notes"
+          type="text"
+          value={updatedEntry.notes}
+          onChange={(event) =>
+            setUpdatedEntry((prevState) => ({
+              ...prevState,
+              notes: event.target.value,
             }))
           }
         />

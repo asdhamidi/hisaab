@@ -1,115 +1,110 @@
-# Hisaab App
+## Hisaab Application
+
+### Overview
 
 **Hisaab** is a React-based web application which I created as a website for my flatmates to manage and log our joint expenses, the app allows users to add, track, and manage entries for items purchased, and calculates how much each person owes. The design of the app follows brutalism web design principles, emphasizing functionality with a minimalist and utilitarian aesthetic.
 
-## Table of Contents
+### Table of Contents
 
-- [Features](#features)
-- [Technologies Used](#technologies-used)
 - [Installation](#installation)
+- [Project Structure](#project-structure)
 - [Usage](#usage)
-- [API Handling](#api-handling)
-- [App Structure](#app-structure)
-- [Brutalism Web Design](#brutalism-web-design)
-- [Contributing](#contributing)
+- [APIs Used](#apis-used)
+- [Components](#components)
 - [License](#license)
 
-## Features
-
-- **User Authentication**: Users can log in using their credentials.
-- **Add/Edit Entries**: Users can add new entries and specify the items, price, who paid, and who owes. All entries made by the current user are highlighted with a green shade. Clicking on these entries opens up an editing window, allowing the user to make changes.
-- **Owed By All**: A convenient feature that automatically selects all group members as owing.
-- **Monthly Filtering**: Entries can be filtered by month.
-- **Expense Summary**: Provides a summary of how much each person owes.
-- **Persistent Sessions**: The app keeps the user logged in across sessions using JWT tokens.
-- **Popup**: A popup shows details of the amounts owed by each person, except the current user.
-
-## Technologies Used
-
-- **React**: Frontend framework used to build the UI.
-- **Axios**: For making HTTP requests to the backend.
-- **CSS**: Styling with a brutalism design approach.
-- **JavaScript**: For handling app logic and state management.
-- **LocalStorage**: For token management and user session persistence.
-
-## Installation
-
-### Prerequisites
-
-- Node.js
-- npm (Node Package Manager)
-
-### Steps
+### Installation
 
 1. Clone the repository:
-   ```sh
-   git clone https://github.com/asdhamidi/hisaab.git
-   ```
-2. Navigate to the project directory:
-   ```sh
-   cd hisaab
-   ```
-3. Install dependencies:
-   ```sh
-   npm install
-   ```
-4. Start the development server:
-   ```sh
-   npm start
-   ```
+    ```bash
+    git clone https://github.com/asdhamidi/hisaab.git
+    cd hisaab
+    ```
+2. Install the dependencies:
+    ```bash
+    npm install
+    ```
+3. Run the application:
+    ```bash
+    npm start
+    ```
 
-## Usage
+### Project Structure
 
-1. **Login**: Upon starting the app, you'll be prompted to log in. Enter your credentials.
-2. **Add Entry**: Use the "new entry" button to add a new entry. Fill out the form, including items, price, who paid, and who owes.
-3. **Edit Entry**: Entries that you have created are highlighted in green. Click on any of these entries to open the editing window and make changes.
-4. **Filter Entries**: Use the dropdown to filter entries by month.
-5. **Logout**: Click the logout button to end your session.
+```
+hisaab/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── api-handling.js
+│   │   ├── board.js
+│   │   ├── editor.js
+│   │   ├── login.js
+│   │   ├── navbar.js
+│   │   ├── owe-details.js
+│   │   ├── pop-up.js
+│   │   ├── summary.js
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+├── package.json
+└── README.md
+```
 
-## API Handling
+### Usage
 
-The app uses `axios` for API handling. An instance of `axios` is configured to include the JWT token in the headers for authenticated requests. The base URL is set to the backend server:
+1. **Login/Register**:
+    - The app starts with a login/register screen. Users can either log in or register as a new user using the provided registration code.
 
-```js
+2. **Adding Entries**:
+    - Once logged in, users can add new entries by clicking the `New Entry` button on the navbar. Users need to input details like items, price, and who owes the amount.
+
+3. **Viewing and Editing Entries**:
+    - Entries are listed on the board. Users can click their own entries to edit them. Non-editable entries can be clicked to view details in a pop-up.
+
+4. **Summary**:
+    - The summary section shows the total amount spent and the amount owed by the user. Users can click on the "You Owe" button to see a detailed breakdown of amounts owed to each person.
+
+### APIs Used
+
+The app uses Axios for API handling and backend communication. The base URL is set to:
+
+```javascript
 const axiosInstance = axios.create({
-  baseURL: "https://hisaab-six.vercel.app/",
+  baseURL: "https://hisaab-ashy.vercel.app/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 ```
 
-## App Structure
+Axios interceptors are used to attach the authorization token to requests:
 
-```plaintext
-src/
-│
-├── components/
-│   ├── api-handling.js
-│   ├── board.js
-│   ├── editor.js
-│   ├── login.js
-│   ├── navbar.js
-│   ├── popup.js
-│   └── summary.js
-├── App.js
-├── App.css
-└── index.js
+```javascript
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token && !config.url.includes("/login")) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 ```
 
 ### Components
 
-- **`App.js`**: The main entry point of the app. Manages the overall state and renders different components based on the user's login status.
-- **`editor.js`**: Handles the creation and editing of entries. Ensures that required fields are filled before submission.
-- **`board.js`**: Displays all entries for the selected month. Integrates the navbar and filters.
-- **`navbar.js`**: Provides navigation options, including month selection and logout.
-- **`popup.js`**: Shows details of amounts owed by other users.
-- **`api-handling.js`**: Configures the `axios` instance for API communication.
-- **`login.js`**: Handles user login and token storage.
+- **App.js**: The main component that manages routing and the overall structure of the app.
+- **Login.js**: Manages user authentication (login and registration).
+- **Board.js**: Displays the list of entries.
+- **Editor.js**: Provides a form for creating or editing an entry.
+- **Navbar.js**: The navigation bar that includes logout functionality and a filter for selecting the month.
+- **Summary.js**: Displays summary statistics such as total amount spent and owed.
+- **OweDetails.js**: Shows detailed information about the amount owed to each person.
+- **Popup.js**: Displays entry details in a pop-up window.
+- **ApiHandling.js**: Handles API requests using Axios.
 
-## Brutalism Web Design
+### License
 
-The app embraces brutalism web design, characterized by its raw, bare-bones aesthetic. This design choice emphasizes functionality over form, giving the app a unique and bold visual identity. The minimalist and utilitarian approach is reflected in the stark, unstyled elements and the lack of decorative features.
-
-## License
-This project is licensed under... I don't know which license. Use it, don't use it, I couldn't care less.
+This project is licensed under... well, no specific license. Feel free to use it however you like. Consider it public domain—use it, modify it, share it, or just ignore it.

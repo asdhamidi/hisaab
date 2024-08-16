@@ -12,6 +12,7 @@
   --text-color: #000;
   --text-color-light: #777;
   --link-color: #007;
+  box-sizing: border-box;
 }
 
 .dark {
@@ -24,6 +25,10 @@
   color: var(--text-color-highlight);
   background-color: #000000;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+#root {
+  box-sizing: border-box;
 }
 
 h1, h2, p, a, button, small {
@@ -49,7 +54,6 @@ body {
   box-sizing: border-box;
   padding-top: 0;
   margin: 0;
-  
 }
 
 
@@ -161,6 +165,20 @@ button:hover {
 
 .board {
   width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.content-container {
+  width: 100%;
+}
+
+.summary {
+  width: 100%;
 }
 
 nav  {
@@ -180,6 +198,9 @@ nav  {
 
 .entries {
   border-spacing: 0;
+  overflow: scroll;
+  width: 100%;
+  flex: 1;
 }
 
 .entry {
@@ -218,6 +239,8 @@ em {
   padding: 0;
   background-color: #EEE;
   box-shadow: 0px 3px var(--text-color);
+  position: fixed;
+  bottom: 0;
 }
 
 .summary-comp {
@@ -236,6 +259,7 @@ em {
 
 .top {
   position: sticky;
+  width: 100%;
   top: 0;
 }
 
@@ -275,35 +299,46 @@ label {
 }
 
 .pop {
-  position: absolute;
+  position: fixed;
   padding: 0;
   transition: all ease-in-out 100ms;
-  top: 20vh;
   height: auto;
-  width: auto;
+  width: 90%;
   background-color: #FFF;
-  padding: 1rem 0;
   outline: 3px solid black;
   box-shadow: 6px 6px black;
-  right: -110%;
   z-index: 3;
+  left: 5%;
+  top: 5%;
+  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-direction: column-reverse;
 }
 
 .pop h1 {
-  transform: rotate(-90deg);
   margin: 0;
-  border-bottom: 3px solid black;
+  text-align: center;
+  width: 100%;
+  border-top: 3px solid black;
   padding: 0;
-  color: red;
+  background-color: red;
+  color: white;
 }
 
 .pop-active {
   margin: auto;
-  right: 0;
-  left: 50%;
+  visibility: visible;
+}
+
+.pop-details {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.5rem;
 }
 
 .owe::after {
@@ -331,4 +366,75 @@ h2 {
 
 .user-entry {
   background-color: #DFD;
+}
+
+.blur {
+  position:fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  backdrop-filter: blur(3px);
+  z-index: 2;
+}
+
+
+.pop-up-details {
+  visibility: hidden;
+  padding: 0;
+  transition: all ease-in-out 100ms;
+  height: auto;
+  width: 90%;
+  background-color: #FFF;
+  outline: 3px solid black;
+  box-shadow: 6px 6px black;
+  z-index: 3;
+  left: 5%;
+  top: 5%;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  position: absolute;
+  z-index: 3;
+}
+
+.pop-up-details-active {
+  visibility: visible;
+}
+
+.pop-msg-details p {
+  margin: 0.25rem;
+}
+
+.pop-up-details h2 {
+  width: 100%;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+.pop-up-details hr {
+  width: 100%;
+  margin: 0;
+}
+
+.pop-up-details h1 {
+  background-color: red;
+  color: white;
+  text-align: center;
+  outline: 3px solid black;
+  width: 100%;
+  margin: 0;
+}
+
+.pop-msg-details {
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.updated::before {
+  content: "";
+  font-weight: bold;
+  background-color: red;
+  padding: 0.1rem;
 }
