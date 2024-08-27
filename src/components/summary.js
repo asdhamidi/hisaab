@@ -3,6 +3,7 @@ import OweDetails from "./owe-details";
 
 const Summary = ({ entries }) => {
   const [pop, setPop] = useState("pop");
+
   const calculateSpent = () => {
     const currentUser = localStorage.getItem("user");
     let totalSpent = 0;
@@ -34,6 +35,7 @@ const Summary = ({ entries }) => {
     return Math.round(totalOwed);
   };
 
+
   return (
     <div className="summary">
       <div className="summary-comp">You spent: {calculateSpent()}</div>
@@ -46,6 +48,7 @@ const Summary = ({ entries }) => {
       >
         You owe: {calculateOwed()}
       </div>
+
       {pop.includes("pop-active") && (
         <div
           className="blur"

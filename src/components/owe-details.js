@@ -1,36 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const OweDetails = ({ entries, pop, setPop }) => {
-  const [details, setDetails] = useState([]);
-  useEffect(() => {
-    let currentUser = localStorage.getItem("user");
-    let people = [
-      { name: "asad", amt: 0 },
-      { name: "aaryan", amt: 0 },
-      { name: "piyush", amt: 0 },
-      { name: "sachin", amt: 0 },
-      { name: "saurav", amt: 0 },
-    ];
+  function calculateBalances() {
+    const users = ["asad", "aaryan", "piyush", "sachin", "saurav"];
+    const balances = {};
 
-    people = people.filter((p) => p.name !== currentUser);
-
-    let modEntries = entries.filter((e) => e.paid_by !== currentUser);
-    modEntries = modEntries.filter((e) => e.owed_by.includes(currentUser));
-
-    people.forEach((p) => {
-      let totalOwed = 0;
-      modEntries.forEach((e) => {
-        if (e.paid_by === p.name) {
-          if (e.owed_by.length !== 0)
-            totalOwed += Number(e.price) / e.owed_by.length;
-          else totalOwed += Number(e.price) / 5;
+    // Initialize balances for each user
+    users.forEach((user) => {
+      balances[user] = {};
+      users.forEach((other) => {
+        if (user !== other) {
+          balances[user][other] = 0;
         }
       });
-      p.amt = Math.round(totalOwed);
     });
 
-    setDetails(people);
-  }, [entries]);
+    entries.forEach((entry) => {
+      const totalPeople = entry.owed_by.length; // +1 for the person who paid
+      const share = entry.price / totalPeople;
+      const payer = entry.paid_by;
+
+      // Payer receives money from others
+      entry.owed_by.forEach((ower) => {
+        balances[ower][payer] -= Math.round(share);
+        balances[payer][ower] += Math.round(share);
+      });
+    });
+
+    console.log(balances);
+
+    let table = "<div class=\"entry\">";
+
+    // Header row with user names
+    table += `<em><b>users</b></em>`;
+    users.forEach((user) => {
+      table += `<em><b>${user}</b></em>`;
+    });
+    table += "</div>";
+
+    // Data rows
+    users.forEach((user) => {
+      table += `<div class="entry"><em>${user}</em>`;
+      users.forEach((other) => {
+        if (user === other) {
+          table += "<em>-</em>"; // No one owes themselves
+        } else {
+          table += "<em style=\"color: "+(balances[user][other] >= 0 ? "green": "red")+"\">₹"+balances[user][other].toFixed(2)+"</em>";
+        }
+      });
+      table += "</div>";
+    });
+
+    return table;
+  }
 
   return (
     <div className={pop}>
@@ -43,13 +65,10 @@ const OweDetails = ({ entries, pop, setPop }) => {
         close
       </h1>
       <div className="pop-details">
-        <h2>what you owe to each:</h2>
+        <h2>owe matrix:</h2>
         <hr style={{ width: "100%" }}></hr>
-        {details.map((people) => (
-          <div key={people.name}>
-            {people.name}: <b>{people.amt}</b>
-          </div>
-        ))}
+        <div className="entries" dangerouslySetInnerHTML={{ __html: calculateBalances() }}></div>
+        <em>Note: Negative amount means that the Row person owes that to Column person. Conversely, positive amount means the column person owes that to row person.</em>
       </div>
     </div>
   );
