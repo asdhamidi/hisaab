@@ -27,8 +27,6 @@ const OweDetails = ({ entries, pop, setPop }) => {
       });
     });
 
-    console.log(balances);
-
     let table = "<div class=\"entry\">";
 
     // Header row with user names

@@ -17,25 +17,6 @@ const Summary = ({ entries }) => {
     return totalSpent;
   };
 
-  const calculateOwed = () => {
-    const currentUser = localStorage.getItem("user");
-    let totalOwed = 0;
-
-    entries.forEach((entry) => {
-      if (
-        entry.paid_by !== currentUser &&
-        entry.owed_by.includes(currentUser)
-      ) {
-        if (entry.owed_by.length !== 0)
-          totalOwed += Number(entry.price) / entry.owed_by.length;
-        else totalOwed += Number(entry.price) / 5;
-      }
-    });
-
-    return Math.round(totalOwed);
-  };
-
-
   return (
     <div className="summary">
       <div className="summary-comp">You spent: {calculateSpent()}</div>
@@ -46,7 +27,7 @@ const Summary = ({ entries }) => {
           else setPop("pop");
         }}
       >
-        You owe: {calculateOwed()}
+        Owe Matrix
       </div>
 
       {pop.includes("pop-active") && (
