@@ -23,7 +23,7 @@ const Navbar = ({
   return (
     <div className="top">
       <nav>
-        <h1>hi, {localStorage.getItem("user")}!</h1>
+        <h1>hisaab</h1>
         <div className="nav-controls">
           <select
             className="month"

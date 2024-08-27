@@ -3,31 +3,39 @@ import React from "react";
 const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
   return (
     <div className={popUpVisible}>
-      <h2>Entry Details:</h2>
+      <h2>entry details</h2>
       <hr />
       <div className="pop-msg-details entries">
         {/* Display the main entry details */}
         <div className="entry">
-          <em>Items:</em>
+          <em>items</em>
           <em>{entry.items}</em>
         </div>
         <div className="entry">
-          <em>Price:</em>
+          <em>price</em>
           <em>{entry.price}</em>
         </div>
         <div className="entry">
-          <em>Paid by:</em>
+          <em>paid by</em>
           <em>{entry.paid_by}</em>
+        </div>
+        <div className="entry">
+          <em>owed by:</em>
+          <em>{entry.owed_by && entry.owed_by.join(", ")}</em>
+        </div>
+        <div className="entry">
+          <em>date</em>
+          <em>{entry.date}</em>
         </div>
         {entry.notes !== "" && (
           <div className="entry">
-            <em>Notes:</em>
+            <em>notes</em>
             <em>{entry.notes}</em>
           </div>
         )}
         {entry.updated_at !== "" && (
           <div className="entry">
-            <em>Updated at:</em>
+            <em>updated at</em>
             <em>{entry.updated_at}</em>
           </div>
         )}
@@ -38,28 +46,36 @@ const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
             <h3>Previous Versions:</h3>
             {entry.previous_versions.map((version, index) => (
               <div key={index} className="entries">
-                <strong>Version {index + 1}:</strong>
+                <strong>version {index + 1}:</strong>
                 <div className="entry">
-                  <em>Items:</em>
+                  <em>items</em>
                   <em>{version.items}</em>
                 </div>
                 <div className="entry">
-                  <em>Price:</em>
+                  <em>price</em>
                   <em>{version.price}</em>
                 </div>
                 <div className="entry">
-                  <em>Paid by:</em>
+                  <em>paid by:</em>
                   <em>{version.paid_by}</em>
+                </div>
+                <div className="entry">
+                  <em>owed by:</em>
+                  <em>{version.owed_by.join(", ")}</em>
+                </div>
+                <div className="entry">
+                  <em>date</em>
+                  <em>{version.date}</em>
                 </div>
                 {version.notes !== "" && (
                   <div className="entry">
-                    <em>Notes:</em>
+                    <em>notes</em>
                     <em>{version.notes}</em>
                   </div>
                 )}
                 {version.updated_at !== "" && (
                   <div className="entry">
-                    <em>Updated at:</em>
+                    <em>updated at</em>
                     <em>{version.updated_at}</em>
                   </div>
                 )}
@@ -69,15 +85,14 @@ const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
           </>
         )}
       </div>
-
-      {/* Close button */}
       <h1
         onClick={() => {
-          setPopUpEntry({});
           setPopUpVisible("pop-up-details");
+          
+          setPopUpEntry({});
         }}
       >
-        Close
+        close
       </h1>
     </div>
   );

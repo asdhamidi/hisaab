@@ -43,7 +43,7 @@ const OweDetails = ({ entries, pop, setPop }) => {
         if (user === other) {
           table += "<em>-</em>"; // No one owes themselves
         } else {
-          table += "<em style=\"color: "+(balances[user][other] >= 0 ? "green": "red")+"\">₹"+balances[user][other].toFixed(2)+"</em>";
+          table += "<em style=\"color: "+(balances[user][other] >= 0 ? "green": "red")+"\">₹"+balances[user][other].toFixed(0)+"</em>";
         }
       });
       table += "</div>";

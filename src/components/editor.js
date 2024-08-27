@@ -68,7 +68,7 @@ const Editor = ({
 
   const handleUpdate = () => {
     console.log("upd");
-    
+
     if (
       entry["items"] !== updatedEntry["items"] ||
       entry["price"] !== updatedEntry["price"] ||
@@ -92,6 +92,8 @@ const Editor = ({
         >
           back
         </button>
+        {entry === null && <b>new entry</b>}
+        {entry !== null && <b>edit entry</b>}
         {entry === null && <button onClick={handleSubmit}>submit</button>}
         {entry !== null && <button onClick={handleUpdate}>update</button>}
       </div>
@@ -139,57 +141,71 @@ const Editor = ({
         />
       </label>
       <div className="edt-chk">
-        <input
-          type="checkbox"
-          checked={owedByAll}
-          onChange={(event) => handleOwedByAllChange(event.target.checked)}
-        />
-        <label>Owed by all</label>
+        <label>
+          Owed by all
+          <input
+            type="checkbox"
+            checked={owedByAll}
+            onChange={(event) => handleOwedByAllChange(event.target.checked)}
+          />
+        </label>
       </div>
       <div className="edt-chk">
-        <input
-          type="checkbox"
-          disabled={owedByAll}
-          checked={updatedEntry.owed_by.includes("aaryan")}
-          onChange={(event) =>
-            handleOwedByChange("aaryan", event.target.checked)
-          }
-        />
-        <label>aaryan</label>
-        <input
-          type="checkbox"
-          disabled={owedByAll}
-          checked={updatedEntry.owed_by.includes("asad")}
-          onChange={(event) => handleOwedByChange("asad", event.target.checked)}
-        />
-        <label>asad</label>
-        <input
-          type="checkbox"
-          disabled={owedByAll}
-          checked={updatedEntry.owed_by.includes("piyush")}
-          onChange={(event) =>
-            handleOwedByChange("piyush", event.target.checked)
-          }
-        />
-        <label>piyush</label>
-        <input
-          type="checkbox"
-          disabled={owedByAll}
-          checked={updatedEntry.owed_by.includes("sachin")}
-          onChange={(event) =>
-            handleOwedByChange("sachin", event.target.checked)
-          }
-        />
-        <label>sachin</label>
-        <input
-          type="checkbox"
-          disabled={owedByAll}
-          checked={updatedEntry.owed_by.includes("saurav")}
-          onChange={(event) =>
-            handleOwedByChange("saurav", event.target.checked)
-          }
-        />
-        <label>saurav</label>
+        <label>
+          aaryan
+          <input
+            type="checkbox"
+            disabled={owedByAll}
+            checked={updatedEntry.owed_by.includes("aaryan")}
+            onChange={(event) =>
+              handleOwedByChange("aaryan", event.target.checked)
+            }
+          />
+        </label>
+        <label>
+          asad
+          <input
+            type="checkbox"
+            disabled={owedByAll}
+            checked={updatedEntry.owed_by.includes("asad")}
+            onChange={(event) =>
+              handleOwedByChange("asad", event.target.checked)
+            }
+          />
+        </label>
+        <label>
+          piyush
+          <input
+            type="checkbox"
+            disabled={owedByAll}
+            checked={updatedEntry.owed_by.includes("piyush")}
+            onChange={(event) =>
+              handleOwedByChange("piyush", event.target.checked)
+            }
+          />
+        </label>
+        <label>
+          sachin
+          <input
+            type="checkbox"
+            disabled={owedByAll}
+            checked={updatedEntry.owed_by.includes("sachin")}
+            onChange={(event) =>
+              handleOwedByChange("sachin", event.target.checked)
+            }
+          />
+        </label>
+        <label>
+          saurav
+          <input
+            type="checkbox"
+            disabled={owedByAll}
+            checked={updatedEntry.owed_by.includes("saurav")}
+            onChange={(event) =>
+              handleOwedByChange("saurav", event.target.checked)
+            }
+          />
+        </label>
       </div>
     </div>
   );
