@@ -6,6 +6,7 @@ import Editor from "./components/editor";
 import "./App.css";
 
 function App() {
+  const [users, setUsers] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [editor, setEditor] = useState(false);
   const [entries, setEntries] = useState([]);
@@ -44,6 +45,11 @@ function App() {
       setLoggedIn(true);
       loadEntries();
     }
+
+    axiosInstance
+      .get("/users")
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -55,6 +61,7 @@ function App() {
           entry={currentEntry}
           updateEntry={updateEntry}
           setCurrentEntry={setCurrentEntry}
+          users={users}
         />
       )}
       {loggedIn === false && (
@@ -63,6 +70,7 @@ function App() {
       {loggedIn === true && editor === false && (
         <Board
           entries={entries}
+          users={users}
           makeEntry={makeEntry}
           loadEntries={loadEntries}
           setLoggedIn={setLoggedIn}

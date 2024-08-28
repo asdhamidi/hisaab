@@ -1,8 +1,7 @@
 import React from "react";
 
-const OweDetails = ({ entries, pop, setPop }) => {
+const OweDetails = ({ entries, pop, setPop, users }) => {
   function calculateBalances() {
-    const users = ["asad", "aaryan", "piyush", "sachin", "saurav"];
     const balances = {};
 
     // Initialize balances for each user

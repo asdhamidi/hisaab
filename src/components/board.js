@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 import Summary from "./summary";
 import Popup from "./pop-up";
 
-const Board = ({ entries, setLoggedIn, setEditor, setCurrentEntry }) => {
+const Board = ({ entries, users, setLoggedIn, setEditor, setCurrentEntry }) => {
   const [filteredEntries, setFilteredEntries] = useState(entries);
   const [popUpEntry, setPopUpEntry] = useState({});
   const [popUpVisible, setPopUpVisible] = useState("pop-up-details");
@@ -53,7 +53,7 @@ const Board = ({ entries, setLoggedIn, setEditor, setCurrentEntry }) => {
           );
         })}
       </div>
-      <Summary entries={filteredEntries} />
+      <Summary entries={filteredEntries} users={users}/>
       {popUpVisible.includes("pop-up-details-active") && (
         <div
           className="blur"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OweDetails from "./owe-details";
 
-const Summary = ({ entries }) => {
+const Summary = ({ entries, users }) => {
   const [pop, setPop] = useState("pop");
 
   const calculateSpent = () => {
@@ -39,7 +39,7 @@ const Summary = ({ entries }) => {
           }}
         ></div>
       )}
-      <OweDetails entries={entries} pop={pop} setPop={setPop} />
+      <OweDetails entries={entries} pop={pop} setPop={setPop} users={users}/>
     </div>
   );
 };

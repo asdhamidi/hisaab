@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const Editor = ({
   entry,
+  users,
   makeEntry,
   setEditor,
   updateEntry,
@@ -39,7 +40,7 @@ const Editor = ({
       setUpdatedEntry((prevState) => ({
         ...prevState,
         owed_all: true,
-        owed_by: ["aaryan", "asad", "piyush", "sachin", "saurav"],
+        owed_by: users,
       }));
     } else {
       setUpdatedEntry((prevState) => ({
@@ -67,8 +68,6 @@ const Editor = ({
   };
 
   const handleUpdate = () => {
-    console.log("upd");
-
     if (
       entry["items"] !== updatedEntry["items"] ||
       entry["price"] !== updatedEntry["price"] ||
@@ -149,63 +148,22 @@ const Editor = ({
             onChange={(event) => handleOwedByAllChange(event.target.checked)}
           />
         </label>
-      </div>
+      </div>        
+
       <div className="edt-chk">
-        <label>
-          aaryan
-          <input
-            type="checkbox"
-            disabled={owedByAll}
-            checked={updatedEntry.owed_by.includes("aaryan")}
-            onChange={(event) =>
-              handleOwedByChange("aaryan", event.target.checked)
-            }
-          />
-        </label>
-        <label>
-          asad
-          <input
-            type="checkbox"
-            disabled={owedByAll}
-            checked={updatedEntry.owed_by.includes("asad")}
-            onChange={(event) =>
-              handleOwedByChange("asad", event.target.checked)
-            }
-          />
-        </label>
-        <label>
-          piyush
-          <input
-            type="checkbox"
-            disabled={owedByAll}
-            checked={updatedEntry.owed_by.includes("piyush")}
-            onChange={(event) =>
-              handleOwedByChange("piyush", event.target.checked)
-            }
-          />
-        </label>
-        <label>
-          sachin
-          <input
-            type="checkbox"
-            disabled={owedByAll}
-            checked={updatedEntry.owed_by.includes("sachin")}
-            onChange={(event) =>
-              handleOwedByChange("sachin", event.target.checked)
-            }
-          />
-        </label>
-        <label>
-          saurav
-          <input
-            type="checkbox"
-            disabled={owedByAll}
-            checked={updatedEntry.owed_by.includes("saurav")}
-            onChange={(event) =>
-              handleOwedByChange("saurav", event.target.checked)
-            }
-          />
-        </label>
+        {users.map((user) => (
+          <label key={user}>
+            {user}
+            <input
+              type="checkbox"
+              disabled={owedByAll}
+              checked={updatedEntry.owed_by.includes("aaryan")}
+              onChange={(event) =>
+                handleOwedByChange({ user }, event.target.checked)
+              }
+            />
+          </label>
+        ))}
       </div>
     </div>
   );
