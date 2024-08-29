@@ -23,8 +23,7 @@ const Navbar = ({
   return (
     <div className="top">
       <nav>
-        <h1>hisaab</h1>
-        <div className="nav-controls">
+        <div className="nav-controls nc1">
           <select
             className="month"
             name="month"
@@ -55,8 +54,27 @@ const Navbar = ({
             <option value="11">nov</option>
             <option value="12">dec</option>
           </select>
+        </div>
+        <h1>hisaab</h1>
+        <div className="nav-controls nc2">
           <button className="new-entry" onClick={() => setEditor(true)}>
-            new entry
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+              <path d="M9 12h6" />
+              <path d="M12 9v6" />
+            </svg>
           </button>
           <button
             className="logout"
@@ -66,7 +84,23 @@ const Navbar = ({
               localStorage.removeItem("user");
             }}
           >
-            logout
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+              <path d="M9 12h12l-3 -3" />
+              <path d="M18 15l3 -3" />
+            </svg>
           </button>
         </div>
       </nav>

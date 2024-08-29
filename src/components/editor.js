@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const Editor = ({
   entry,
   users,
+  filteredEntries,
   makeEntry,
   setEditor,
   updateEntry,
@@ -13,6 +14,7 @@ const Editor = ({
       items: "",
       price: "",
       notes: "",
+      date: "",
       owed_by: [],
       owed_all: false,
     }
@@ -20,12 +22,25 @@ const Editor = ({
   const [owedByAll, setOwedByAll] = useState(updatedEntry.owed_all || false);
   const [error, setError] = useState("");
 
+  function convertDateToISO(dateStr) {
+    if (dateStr === "") return "";
+    else if (dateStr.includes("-")) {
+      const [year, month, day] = dateStr.split("-");
+      const fullYear = `20${year}`; // Assuming '20' prefix for year
+      return `${fullYear}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    }
+
+    const [day, month, year] = dateStr.split("/");
+    const fullYear = `20${year}`; // Assuming '20' prefix for year
+    return `${fullYear}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  }
+
   const handleOwedByChange = (person, isChecked) => {
-    let newOwedBy;
+    let newOwedBy = updatedEntry.owed_by;
     if (isChecked) {
-      newOwedBy = [...updatedEntry.owed_by, person];
+      if (!newOwedBy.includes(person["user"])) newOwedBy.push(person["user"]);
     } else {
-      newOwedBy = updatedEntry.owed_by.filter((p) => p !== person);
+      newOwedBy = updatedEntry.owed_by.filter((p) => p !== person["user"]);
     }
     setUpdatedEntry((prevState) => ({
       ...prevState,
@@ -72,7 +87,8 @@ const Editor = ({
       entry["items"] !== updatedEntry["items"] ||
       entry["price"] !== updatedEntry["price"] ||
       entry["owed_by"] !== updatedEntry["owed_by"] ||
-      entry["owed_all"] !== updatedEntry["owed_all"]
+      entry["owed_all"] !== updatedEntry["owed_all"] ||
+      entry["date"] !== updatedEntry["date"]
     )
       updateEntry(entry._id, updatedEntry);
     else {
@@ -97,73 +113,114 @@ const Editor = ({
         {entry !== null && <button onClick={handleUpdate}>update</button>}
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <label>
-        items
-        <input
-          placeholder="items"
-          type="text"
-          value={updatedEntry.items}
-          onChange={(event) =>
-            setUpdatedEntry((prevState) => ({
-              ...prevState,
-              items: event.target.value,
-            }))
-          }
-        />
-      </label>
-      <label>
-        price
-        <input
-          placeholder="price"
-          type="number"
-          value={updatedEntry.price}
-          onChange={(event) =>
-            setUpdatedEntry((prevState) => ({
-              ...prevState,
-              price: event.target.value,
-            }))
-          }
-        />
-      </label>
-      <label>
-        notes
-        <input
-          placeholder="notes"
-          type="text"
-          value={updatedEntry.notes}
-          onChange={(event) =>
-            setUpdatedEntry((prevState) => ({
-              ...prevState,
-              notes: event.target.value,
-            }))
-          }
-        />
-      </label>
-      <div className="edt-chk">
+      <div className="editor-inputs">
         <label>
-          Owed by all
+          items
           <input
-            type="checkbox"
-            checked={owedByAll}
-            onChange={(event) => handleOwedByAllChange(event.target.checked)}
+            placeholder="items"
+            type="text"
+            value={updatedEntry.items}
+            onChange={(event) =>
+              setUpdatedEntry((prevState) => ({
+                ...prevState,
+                items: event.target.value,
+              }))
+            }
           />
         </label>
-      </div>        
-
-      <div className="edt-chk">
-        {users.map((user) => (
-          <label key={user}>
-            {user}
+        <label>
+          price
+          <input
+            placeholder="price"
+            type="number"
+            value={updatedEntry.price}
+            onChange={(event) =>
+              setUpdatedEntry((prevState) => ({
+                ...prevState,
+                price: event.target.value,
+              }))
+            }
+          />
+        </label>
+        <label>
+          notes
+          <input
+            placeholder="notes"
+            type="text"
+            value={updatedEntry.notes}
+            onChange={(event) =>
+              setUpdatedEntry((prevState) => ({
+                ...prevState,
+                notes: event.target.value,
+              }))
+            }
+          />
+        </label>
+        <div className="edt-chk">
+          <label>
+            Owed by all
             <input
               type="checkbox"
-              disabled={owedByAll}
-              checked={updatedEntry.owed_by.includes("aaryan")}
-              onChange={(event) =>
-                handleOwedByChange({ user }, event.target.checked)
-              }
+              checked={owedByAll}
+              onChange={(event) => handleOwedByAllChange(event.target.checked)}
             />
           </label>
-        ))}
+        </div>
+
+        <div className="edt-chk">
+          {users.map((user) => (
+            <label key={user}>
+              {user}
+              <input
+                type="checkbox"
+                disabled={owedByAll}
+                checked={updatedEntry.owed_by.includes(user)}
+                onChange={(event) =>
+                  handleOwedByChange({ user }, event.target.checked)
+                }
+              />
+            </label>
+          ))}
+        </div>
+        <label>
+          Provide if older entry, else leave blank:
+          <input
+            type="date"
+            value={convertDateToISO(updatedEntry.date)}
+            onChange={(event) => {
+              setUpdatedEntry((prevState) => ({
+                ...prevState,
+                date: event.target.value,
+              }));
+            }}
+          />
+        </label>
+        {updatedEntry.owed_by.length > 0 &&
+          updatedEntry.owed_by.filter(
+            (name) => name !== localStorage.getItem("user")
+          ).length >= 1 &&
+          updatedEntry.price !== "" && (
+            <div>
+              <p> <b>breakdown: </b>
+                {updatedEntry.owed_by
+                  .filter((name) => name !== localStorage.getItem("user"))
+                  .join(", ")}{" "}
+                {updatedEntry.owed_by.filter(
+                  (name) => name !== localStorage.getItem("user")
+                ).length > 1
+                  ? "each owe"
+                  : "owes"}{" "}
+                <b>
+                  ₹
+                  {(updatedEntry.price / updatedEntry.owed_by.length).toFixed(
+                    2
+                  )}{" "}
+                </b>
+                to you for this expense.
+              </p>
+              
+            </div>
+          )}
       </div>
     </div>
   );

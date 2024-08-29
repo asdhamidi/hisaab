@@ -11,6 +11,7 @@ function App() {
   const [editor, setEditor] = useState(false);
   const [entries, setEntries] = useState([]);
   const [currentEntry, setCurrentEntry] = useState(null);
+  const [filteredEntries, setFilteredEntries] = useState(entries);
 
   const loadEntries = () => {
     axiosInstance
@@ -20,6 +21,8 @@ function App() {
   };
 
   const makeEntry = (entry) => {
+    console.log(entry);
+
     axiosInstance
       .post("/entries", entry)
       .then(() => {
@@ -61,6 +64,7 @@ function App() {
           entry={currentEntry}
           updateEntry={updateEntry}
           setCurrentEntry={setCurrentEntry}
+          filteredEntries={filteredEntries}
           users={users}
         />
       )}
@@ -70,6 +74,8 @@ function App() {
       {loggedIn === true && editor === false && (
         <Board
           entries={entries}
+          filteredEntries={filteredEntries}
+          setFilteredEntries={setFilteredEntries}
           users={users}
           makeEntry={makeEntry}
           loadEntries={loadEntries}

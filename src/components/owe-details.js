@@ -26,7 +26,7 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
       });
     });
 
-    let table = "<div class=\"entry\">";
+    let table = '<div class="entry">';
 
     // Header row with user names
     table += `<em><b>users</b></em>`;
@@ -42,7 +42,12 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
         if (user === other) {
           table += "<em>-</em>"; // No one owes themselves
         } else {
-          table += "<em style=\"color: "+(balances[user][other] >= 0 ? "green": "red")+"\">₹"+balances[user][other].toFixed(0)+"</em>";
+          table +=
+            '<em style="color: ' +
+            (balances[user][other] >= 0 ? "green" : "red") +
+            '">₹' +
+            balances[user][other].toFixed(0) +
+            "</em>";
         }
       });
       table += "</div>";
@@ -64,8 +69,15 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
       <div className="pop-details">
         <h2>owe matrix:</h2>
         <hr style={{ width: "100%" }}></hr>
-        <div className="entries" dangerouslySetInnerHTML={{ __html: calculateBalances() }}></div>
-        <em>Note: Negative amount means that the Row person owes that to Column person. Conversely, positive amount means the column person owes that to row person.</em>
+        <div
+          className="owe-entries"
+          dangerouslySetInnerHTML={{ __html: calculateBalances() }}
+        ></div>
+        <em>
+          Note: Negative amount means that the Row person owes that to Column
+          person. Conversely, positive amount means the column person owes that
+          to row person.
+        </em>
       </div>
     </div>
   );

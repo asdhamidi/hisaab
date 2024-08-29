@@ -19,7 +19,13 @@ const Summary = ({ entries, users }) => {
 
   return (
     <div className="summary">
-      <div className="summary-comp">You spent: {calculateSpent()}</div>
+      <div className="summary-comp"><p className="summary-title">your spending:</p>{calculateSpent()}</div>
+      <div className="summary-comp">
+      <p className="summary-title">combined spending:</p>{" "}
+        {entries.reduce((accumulator, currentValue) => {
+          return accumulator + Number(currentValue.price);
+        }, 0)}
+      </div>
       <div
         className="summary-comp owe"
         onClick={() => {
@@ -39,7 +45,7 @@ const Summary = ({ entries, users }) => {
           }}
         ></div>
       )}
-      <OweDetails entries={entries} pop={pop} setPop={setPop} users={users}/>
+      <OweDetails entries={entries} pop={pop} setPop={setPop} users={users} />
     </div>
   );
 };

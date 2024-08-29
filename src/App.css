@@ -96,7 +96,7 @@ body {
   gap: 1rem;
 }
 
-  .front-page input, select, .editor input  {
+  .front-page input, select{
   width: 100%;
   box-sizing: border-box;
   padding: 0.5rem;
@@ -185,7 +185,7 @@ nav  {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0;
   width: 100%;
   padding: 0 1rem;
   box-sizing: border-box;
@@ -196,14 +196,14 @@ nav  {
   z-index: 3;
 }
 
-.entries {
+.entries, .owe-entries {
   border-spacing: 0;
   overflow: scroll;
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;
   width: 100%;
   flex: 1;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .entry {
@@ -249,17 +249,20 @@ em {
 .summary-comp {
   font-weight: bold;
   flex: 1;
-  padding: 0.5rem;
+  padding: 0.25rem;
+  text-align: center;
 }
-
+.summary-title {
+  font-size: 0.5rem;
+  margin: 0;
+}
 .summary-comp:first-child {
   border-right: 1px solid black;
 }
 
-.owe {
-  text-align: right;
+.summary-comp:nth-child(2) {
+  border-right: 1px solid black;
 }
-
 .top {
   position: sticky;
   width: 100%;
@@ -267,11 +270,12 @@ em {
 }
 
 .editor {
-  margin-top: 20ch;
   background-color: #FFF;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   gap: 1rem;
   padding: .5rem;
@@ -280,7 +284,7 @@ em {
 }
 
 input {
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .editor-controls {
@@ -290,6 +294,15 @@ input {
   justify-content: space-between;
   border-bottom: 2px solid black;
   padding-bottom: 1rem;
+}
+
+.editor-inputs input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border: none;
+  color: var(--text-color);
+  border: 1px solid #BBB;
 }
 
 .editor-controls button:first-child {
@@ -308,7 +321,21 @@ input {
 
 label {
   width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
   font-size: 0.9rem;
+}
+
+.editor-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: .5rem;
+  width: 100%;
 }
 
 .pop {
@@ -360,10 +387,25 @@ label {
 
 .logout {
   border-color: red;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  flex:1;
+}
+
+nav h1 {
+  flex: 2;
+  text-align: center;
 }
 
 .new-entry {
+  display: flex;
+  flex:1;
+  padding: 0.25rem 0.75rem;
   border-color: greenyellow;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-controls {
@@ -371,6 +413,10 @@ label {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+
+.nc1 {
+  align-items: flex-start;
 }
 
 h2 {
@@ -468,4 +514,10 @@ h2 {
   justify-content: center;
   border: 1px solid #999;
   padding: 0.5rem 0.1rem;
+}
+
+.owe-entries {
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid black;
 }

@@ -6,7 +6,6 @@ const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
       <h2>entry details</h2>
       <hr />
       <div className="pop-msg-details entries">
-        {/* Display the main entry details */}
         <div className="entry">
           <em>items</em>
           <em>{entry.items}</em>

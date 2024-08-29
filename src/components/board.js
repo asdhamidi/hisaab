@@ -3,8 +3,7 @@ import Navbar from "./navbar";
 import Summary from "./summary";
 import Popup from "./pop-up";
 
-const Board = ({ entries, users, setLoggedIn, setEditor, setCurrentEntry }) => {
-  const [filteredEntries, setFilteredEntries] = useState(entries);
+const Board = ({ entries, filteredEntries, setFilteredEntries, users, setLoggedIn, setEditor, setCurrentEntry }) => {
   const [popUpEntry, setPopUpEntry] = useState({});
   const [popUpVisible, setPopUpVisible] = useState("pop-up-details");
 
