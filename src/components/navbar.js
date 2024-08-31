@@ -7,9 +7,10 @@ const Navbar = ({
   setEntries,
   filteredEntries,
   setFilteredEntries,
+  selectedMonth, 
+  setSelectedMonth
 }) => {
-  const currentMonth = new Date().getMonth() + 1;
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  
   useEffect(() => {
     setFilteredEntries(
       entries.filter((entry) => {

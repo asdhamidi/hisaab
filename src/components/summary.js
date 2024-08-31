@@ -3,7 +3,7 @@ import OweDetails from "./owe-details";
 import Activites from "./activities";
 import Chart from "./stats";
 
-const Summary = ({ entries, users }) => {
+const Summary = ({ entries, users, month }) => {
   const [oweScreen, setOwescreen] = useState(false);
   const [activitesScreen, setActivitesScreen] = useState(false);
   const [chartsScreen, setChartsScreen] = useState(false);
@@ -119,6 +119,7 @@ const Summary = ({ entries, users }) => {
         <Chart
           setChartsScreen={setChartsScreen}
           chartsScreen={chartsScreen}
+          month={month}
         />
       )}
     </div>

@@ -55,10 +55,10 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
                           {user.substring(0, 1) +
                             user.substring(user.length, user.length - 1)}
                         </div>
-                        <i>{user}</i>
+                        <b>{user}</b>
                       </div>
                       <div className="owe-info">
-                        <b>you owe:</b>
+                        <em>you owe:</em>
                         <b>₹{Math.abs(balances[user])}</b>
                       </div>
                     </div>
@@ -78,10 +78,10 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
                           {user.substring(0, 1) +
                             user.substring(user.length, user.length - 1)}
                         </div>
-                        <i>{user}</i>
+                        <b>{user}</b>
                       </div>
                       <div className="owe-info">
-                        <b>owes you:</b>
+                        <em>owes you:</em>
                         <b>₹{balances[user]}</b>
                       </div>
                     </div>

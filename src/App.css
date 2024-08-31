@@ -204,7 +204,7 @@ nav  {
     scrollbar-width: none;
   width: 100%;
   flex: 1;
-  margin-bottom: 2.5rem;
+  margin-bottom: 4rem;
 }
 
 .entry {
@@ -214,7 +214,6 @@ nav  {
 }
 
 em {
-  border-right: 1px solid black;
   margin: 0;
   flex: 1;
   text-align: center;
@@ -224,6 +223,9 @@ em {
   justify-content: center;
   font-size: 0.75rem;
   padding: 0.25rem;
+}
+
+.entry em {
 }
 
 .entry-header {
@@ -673,6 +675,11 @@ h2 {
   width: 100%;
   padding: 0.5rem 1rem ;
   box-sizing: border-box;
+  border: none;
+  padding: 0.5rem;
+  border: 3px solid var(--text-color);
+  background-color: var(--text-color-highlight);
+  box-shadow: 5px 5px var(--text-color);
 }
 
 .owe-profile {
@@ -696,7 +703,7 @@ h2 {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0rem;
   height: 1rem;
 }
 
@@ -721,6 +728,10 @@ h3 {
 
 .activites-list {
   overflow: scroll;
+  padding: 0.5rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 .activity {
@@ -729,9 +740,14 @@ h3 {
   margin: 0.5rem 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.5rem;
   padding: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+  border: 3px solid var(--text-color);
+  background-color: var(--text-color-highlight);
+  box-shadow: 5px 5px var(--text-color);
 }
 
 .charts {

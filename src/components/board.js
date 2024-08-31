@@ -20,6 +20,8 @@ const Board = ({
 }) => {
   const [popUpEntry, setPopUpEntry] = useState({});
   const [popUpVisible, setPopUpVisible] = useState("pop-up-details");
+  const currentMonth = new Date().getMonth() + 1;
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
 
   return (
     <div className="board">
@@ -29,6 +31,8 @@ const Board = ({
         setEditor={setEditor}
         filteredEntries={filteredEntries}
         setFilteredEntries={setFilteredEntries}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
       />
       {loadingEntries && (
         <div className="loader">
@@ -77,7 +81,7 @@ const Board = ({
           );
         })}
       </div>
-      <Summary entries={filteredEntries} users={users} />
+      <Summary entries={filteredEntries} users={users} month={selectedMonth} />
       {popUpVisible.includes("pop-up-details-active") && (
         <>
           <div

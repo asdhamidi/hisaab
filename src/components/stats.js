@@ -4,16 +4,15 @@ import axiosInstance from "./api-handling";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const Chart = ({ title, chartsScreen, setChartsScreen }) => {
+const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
   const [dataPoints, setDataPoints] = useState([]);
 
   const choiceChange = (choice) => {
-    let req = { month: new Date().getMonth() + 1 };
     choice = Number(choice);
 
     if (choice === 1) {
       axiosInstance
-        .get("/stats/daily/" + req.month)
+        .get("/stats/daily/" + month)
         .then((response) => {
           let new_data = response.data;
           new_data = renameKeyInJson(new_data, "_id", "x");
@@ -47,7 +46,7 @@ const Chart = ({ title, chartsScreen, setChartsScreen }) => {
         });
     } else {
       axiosInstance
-        .get("/stats/daily_person/" + req.month)
+        .get("/stats/daily_person/" + month)
         .then((response) => {
           let new_data = response.data;
           new_data = renameKeyInJson(new_data, "_id", "label");
@@ -83,7 +82,7 @@ const Chart = ({ title, chartsScreen, setChartsScreen }) => {
     let req = { month: new Date().getMonth() + 1 };
 
     axiosInstance
-      .get("/stats/daily/" + req.month)
+      .get("/stats/daily/" + month)
       .then((response) => {
         let new_data = response.data;
         new_data = renameKeyInJson(new_data, "_id", "x");
@@ -186,7 +185,6 @@ const Chart = ({ title, chartsScreen, setChartsScreen }) => {
         >
           <option value="1">combined expense</option>
           <option value="2">person wise</option>
-          <option value="3">mar</option>
         </select>
       </div>
       <hr style={{ width: "100%" }}></hr>
