@@ -734,3 +734,15 @@ h3 {
   gap: 0.5rem;
   padding: 0.5rem;
 }
+
+.charts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.charts-owe-controls {
+  justify-content: space-between;
+}
