@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const OweDetails = ({ entries, pop, setPop, users }) => {
-  function calculateBalances() {
-    const balances = {};
+  const [balances, setBalances] = useState({});
 
-    // Initialize balances for each user
+  useEffect(() => calculateBalances(), [setBalances]);
+
+  function calculateBalances() {
+    const currBalance = {};
+    const currentUser = localStorage.getItem("user");
     users.forEach((user) => {
-      balances[user] = {};
-      users.forEach((other) => {
-        if (user !== other) {
-          balances[user][other] = 0;
-        }
-      });
+      if (user !== currentUser) currBalance[user] = 0;
     });
 
     entries.forEach((entry) => {
@@ -19,66 +17,78 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
       const share = entry.price / totalPeople;
       const payer = entry.paid_by;
 
-      // Payer receives money from others
-      entry.owed_by.forEach((ower) => {
-        balances[ower][payer] -= Math.round(share);
-        balances[payer][ower] += Math.round(share);
-      });
+      if (payer === currentUser) {
+        entry.owed_by.forEach((ower) => {
+          currBalance[ower] += share;
+        });
+      } else {
+        if (entry.owed_by.includes(currentUser)) currBalance[payer] -= share;
+      }
     });
 
-    let table = '<div class="entry">';
-
-    // Header row with user names
-    table += `<em><b>users</b></em>`;
     users.forEach((user) => {
-      table += `<em><b>${user}</b></em>`;
-    });
-    table += "</div>";
-
-    // Data rows
-    users.forEach((user) => {
-      table += `<div class="entry"><em>${user}</em>`;
-      users.forEach((other) => {
-        if (user === other) {
-          table += "<em>-</em>"; // No one owes themselves
-        } else {
-          table +=
-            '<em style="color: ' +
-            (balances[user][other] >= 0 ? "green" : "red") +
-            '">₹' +
-            balances[user][other].toFixed(0) +
-            "</em>";
-        }
-      });
-      table += "</div>";
+      currBalance[user] = Math.ceil(currBalance[user]);
     });
 
-    return table;
+    setBalances(currBalance);
   }
 
   return (
-    <div className={pop}>
+    <div className="pop pop-active">
+      <div className="pop-details">
+        <div className="owe-controls">
+          <h2>owe matrix</h2>
+        </div>
+        <hr style={{ width: "100%" }}></hr>
+        <div className="profiles">
+          <h3>people you owe money to</h3>
+          {users
+            .filter((user) => user !== localStorage.getItem("user"))
+            .filter((user) => balances[user] < 0)
+            .map((user) => {
+              return (
+                <div className="profile" key={user}>
+                  <div className="owe-profile-info">
+                    <div className="owe-profile">{user.substring(0, 1)+user.substring(user.length, user.length-1)}</div>
+                    <i>{user}</i>
+                  </div>
+                  <div className="owe-info">
+                    <b>you owe:</b>
+                    <b>₹{Math.abs(balances[user])}</b>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+        <div className="profiles">
+          <h3>people who owe money to you</h3>
+          {users
+            .filter((user) => user !== localStorage.getItem("user"))
+            .filter((user) => balances[user] > 0)
+            .map((user) => {
+              return (
+                <div className="profile" key={user}>
+                  <div className="owe-profile-info">
+                    <div className="owe-profile">{user.substring(0, 1)+user.substring(user.length, user.length-1)}</div>
+                    <i>{user}</i>
+                  </div>
+                  <div className="owe-info">
+                    <b>owes you:</b>
+                    <b>₹{balances[user]}</b>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      </div>
       <h1
+      className="close"
         onClick={() => {
-          if (pop === "pop") setPop("pop pop-active");
-          else setPop("pop");
+          setPop(!pop);
         }}
       >
-        close
+        close   
       </h1>
-      <div className="pop-details">
-        <h2>owe matrix:</h2>
-        <hr style={{ width: "100%" }}></hr>
-        <div
-          className="owe-entries"
-          dangerouslySetInnerHTML={{ __html: calculateBalances() }}
-        ></div>
-        <em>
-          Note: Negative amount means that the Row person owes that to Column
-          person. Conversely, positive amount means the column person owes that
-          to row person.
-        </em>
-      </div>
     </div>
   );
 };

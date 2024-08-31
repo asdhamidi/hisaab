@@ -87,7 +87,6 @@ const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
       <h1
         onClick={() => {
           setPopUpVisible("pop-up-details");
-          
           setPopUpEntry({});
         }}
       >
