@@ -3,6 +3,7 @@ import axiosInstance from "./components/api-handling";
 import Login from "./components/login";
 import Board from "./components/board";
 import Editor from "./components/editor";
+import Chart from "./components/stats";
 import "./App.css";
 
 function App() {
@@ -10,19 +11,23 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [editor, setEditor] = useState(false);
   const [entries, setEntries] = useState([]);
+  const [loadingEntries, setLoadingEntries] = useState(true);
   const [currentEntry, setCurrentEntry] = useState(null);
   const [filteredEntries, setFilteredEntries] = useState(entries);
 
   const loadEntries = () => {
     axiosInstance
       .get("/entries")
-      .then((res) => setEntries(res.data))
+      .then((res) => {
+        setLoadingEntries(false);
+        setEntries(res.data);
+        console.log(res.data);
+      })
       .catch((err) => console.error(err));
+      
   };
 
   const makeEntry = (entry) => {
-    console.log(entry);
-
     axiosInstance
       .post("/entries", entry)
       .then(() => {
@@ -42,6 +47,16 @@ function App() {
       .catch((err) => console.error(err));
   };
 
+  const deleteEntry = (id, entry) => {
+    axiosInstance
+      .delete("/entries/" + id)
+      .then(() => {
+        loadEntries();
+        setEditor(false);
+      })
+      .catch((err) => console.error(err));
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -49,10 +64,12 @@ function App() {
       loadEntries();
     }
 
-    axiosInstance
-      .get("/users")
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.error(err));
+    const users = ["asad", "aaryan", "piyush", "sachin", "saurav"];
+    setUsers(users);
+    // axiosInstance
+    //   .get("/users")
+    //   .then((res) => setUsers(res.data))
+    //   .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -66,6 +83,7 @@ function App() {
           setCurrentEntry={setCurrentEntry}
           filteredEntries={filteredEntries}
           users={users}
+          deleteEntry={deleteEntry}
         />
       )}
       {loggedIn === false && (
@@ -82,6 +100,7 @@ function App() {
           setLoggedIn={setLoggedIn}
           setEditor={setEditor}
           setCurrentEntry={setCurrentEntry}
+          loadingEntries={loadingEntries}
         />
       )}
     </div>

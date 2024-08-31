@@ -2,8 +2,22 @@ import React, { useState } from "react";
 import Navbar from "./navbar";
 import Summary from "./summary";
 import Popup from "./pop-up";
+import ClockLoader from "react-spinners/ClockLoader";
 
-const Board = ({ entries, filteredEntries, setFilteredEntries, users, setLoggedIn, setEditor, setCurrentEntry }) => {
+const override = {
+  borderColor: "#666",
+};
+
+const Board = ({
+  entries,
+  filteredEntries,
+  setFilteredEntries,
+  users,
+  setLoggedIn,
+  setEditor,
+  setCurrentEntry,
+  loadingEntries,
+}) => {
   const [popUpEntry, setPopUpEntry] = useState({});
   const [popUpVisible, setPopUpVisible] = useState("pop-up-details");
 
@@ -16,7 +30,18 @@ const Board = ({ entries, filteredEntries, setFilteredEntries, users, setLoggedI
         filteredEntries={filteredEntries}
         setFilteredEntries={setFilteredEntries}
       />
-
+      {loadingEntries && (
+        <div className="loader">
+          <ClockLoader
+            className="loading-spinner"
+            loading={true}
+            size={60}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            cssOverride={override}
+          />
+        </div>
+      )}
       <div className="entries">
         {filteredEntries.map((entry) => {
           const currentUser = localStorage.getItem("user");
@@ -52,22 +77,24 @@ const Board = ({ entries, filteredEntries, setFilteredEntries, users, setLoggedI
           );
         })}
       </div>
-      <Summary entries={filteredEntries} users={users}/>
+      <Summary entries={filteredEntries} users={users} />
       {popUpVisible.includes("pop-up-details-active") && (
-        <div
-          className="blur"
-          onClick={() => {
-            setPopUpVisible("pop-up-details");
-            setPopUpEntry({});
-          }}
-        ></div>
+        <>
+          <div
+            className="blur"
+            onClick={() => {
+              setPopUpVisible("pop-up-details");
+              setPopUpEntry({});
+            }}
+          ></div>
+          <Popup
+            entry={popUpEntry}
+            popUpVisible={popUpVisible}
+            setPopUpVisible={setPopUpVisible}
+            setPopUpEntry={setPopUpEntry}
+          />
+        </>
       )}
-      <Popup
-        entry={popUpEntry}
-        popUpVisible={popUpVisible}
-        setPopUpVisible={setPopUpVisible}
-        setPopUpEntry={setPopUpEntry}
-      />
     </div>
   );
 };

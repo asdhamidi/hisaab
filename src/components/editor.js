@@ -8,6 +8,7 @@ const Editor = ({
   setEditor,
   updateEntry,
   setCurrentEntry,
+  deleteEntry,
 }) => {
   const [updatedEntry, setUpdatedEntry] = useState(
     entry || {
@@ -21,6 +22,7 @@ const Editor = ({
   );
   const [owedByAll, setOwedByAll] = useState(updatedEntry.owed_all || false);
   const [error, setError] = useState("");
+  const [popUpVisible, setPopUpVisible] = useState("");
 
   function convertDateToISO(dateStr) {
     if (dateStr === "") return "";
@@ -44,7 +46,7 @@ const Editor = ({
     }
     setUpdatedEntry((prevState) => ({
       ...prevState,
-      owed_by: newOwedBy,
+      owed_by: newOwedBy.sort(),
     }));
   };
 
@@ -88,7 +90,8 @@ const Editor = ({
       entry["price"] !== updatedEntry["price"] ||
       entry["owed_by"] !== updatedEntry["owed_by"] ||
       entry["owed_all"] !== updatedEntry["owed_all"] ||
-      entry["date"] !== updatedEntry["date"]
+      entry["date"] !== updatedEntry["date"] ||
+      entry["notes"] !== updatedEntry["notes"]
     )
       updateEntry(entry._id, updatedEntry);
     else {
@@ -107,8 +110,8 @@ const Editor = ({
         >
           back
         </button>
-        {entry === null && <b>new entry</b>}
-        {entry !== null && <b>edit entry</b>}
+        {entry === null && <h1>new entry</h1>}
+        {entry !== null && <h1>edit entry</h1>}
         {entry === null && <button onClick={handleSubmit}>submit</button>}
         {entry !== null && <button onClick={handleUpdate}>update</button>}
       </div>
@@ -144,16 +147,17 @@ const Editor = ({
         </label>
         <label>
           notes
-          <input
+          <textarea
             placeholder="notes"
+            className="notes-entry"
             type="text"
             value={updatedEntry.notes}
-            onChange={(event) =>
+            onChange={(event) => {
               setUpdatedEntry((prevState) => ({
                 ...prevState,
                 notes: event.target.value,
-              }))
-            }
+              }));
+            }}
           />
         </label>
         <div className="edt-chk">
@@ -183,7 +187,7 @@ const Editor = ({
           ))}
         </div>
         <label>
-          Provide if older entry, else leave blank:
+          enter if backdated entry, else leave blank:
           <input
             type="date"
             value={convertDateToISO(updatedEntry.date)}
@@ -195,13 +199,25 @@ const Editor = ({
             }}
           />
         </label>
+        {entry !== null && (
+          <button
+            className="delete-entry"
+            onClick={() => {
+              setPopUpVisible(entry._id);
+            }}
+          >
+            delete entry
+          </button>
+        )}
         {updatedEntry.owed_by.length > 0 &&
           updatedEntry.owed_by.filter(
             (name) => name !== localStorage.getItem("user")
           ).length >= 1 &&
           updatedEntry.price !== "" && (
             <div>
-              <p> <b>breakdown: </b>
+              <p>
+                {" "}
+                <b>breakdown: </b>
                 {updatedEntry.owed_by
                   .filter((name) => name !== localStorage.getItem("user"))
                   .join(", ")}{" "}
@@ -218,9 +234,46 @@ const Editor = ({
                 </b>
                 to you for this expense.
               </p>
-              
             </div>
           )}
+        {popUpVisible !== "" && (
+          <>
+            <div
+              className="blur"
+              onClick={() => {
+                setPopUpVisible("");
+              }}
+            />
+            <div className="delete-msg">
+              <h1>delete?</h1>
+              <p>do you want to delete this entry?</p>
+              <div className="delete-options">
+                <button
+                  onClick={() => {
+                    deleteEntry(popUpVisible);
+                    setCurrentEntry({
+                      items: "",
+                      price: "",
+                      notes: "",
+                      date: "",
+                      owed_by: [],
+                      owed_all: false,
+                    });
+                  }}
+                >
+                  yes
+                </button>
+                <button
+                  onClick={() => {
+                    setPopUpVisible("");
+                  }}
+                >
+                  no
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
