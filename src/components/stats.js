@@ -91,8 +91,25 @@ const Chart = ({ title, chartsScreen, setChartsScreen }) => {
           entry.x = parseDateString(entry.x);
         });
         new_data = renameKeyInJson(new_data, "total_price", "y");
-
-        setDataPoints(new_data);
+        setOptions({
+          title: {
+            text: "Combined Expenses", // Use prop value or default if not provided
+          },
+          axisX: {
+            valueFormatString: "##/" + (new Date().getMonth() + 1),
+          },
+          axisY: {
+            title: "expenses",
+            prefix: "₹",
+          },
+          data: [
+            {
+              yValueFormatString: "###",
+              type: "line",
+              dataPoints: new_data,
+            },
+          ],
+        });
       })
       .catch((error) => {
         console.error("Error fetching daily stats:", error);
