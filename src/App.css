@@ -250,7 +250,7 @@ em {
 
 .summary-comp {
   font-weight: bold;
-  padding: 0.25rem .75rem;
+  padding: .75rem;
   text-align: center;
   box-sizing: border-box;
   height: 100%;
@@ -260,7 +260,6 @@ em {
   flex: 1;
 }
 .summary-title {
-  font-size: 0.5rem;
   margin: 0;
 }
 .summary-comp:first-child {

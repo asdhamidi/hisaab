@@ -40,54 +40,64 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
           <h2>owe matrix</h2>
         </div>
         <hr style={{ width: "100%" }}></hr>
-        <div className="profiles">
-          <h3>people you owe money to</h3>
-          {users
-            .filter((user) => user !== localStorage.getItem("user"))
-            .filter((user) => balances[user] < 0)
-            .map((user) => {
-              return (
-                <div className="profile" key={user}>
-                  <div className="owe-profile-info">
-                    <div className="owe-profile">{user.substring(0, 1)+user.substring(user.length, user.length-1)}</div>
-                    <i>{user}</i>
-                  </div>
-                  <div className="owe-info">
-                    <b>you owe:</b>
-                    <b>₹{Math.abs(balances[user])}</b>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-        <div className="profiles">
-          <h3>people who owe money to you</h3>
-          {users
-            .filter((user) => user !== localStorage.getItem("user"))
-            .filter((user) => balances[user] > 0)
-            .map((user) => {
-              return (
-                <div className="profile" key={user}>
-                  <div className="owe-profile-info">
-                    <div className="owe-profile">{user.substring(0, 1)+user.substring(user.length, user.length-1)}</div>
-                    <i>{user}</i>
-                  </div>
-                  <div className="owe-info">
-                    <b>owes you:</b>
-                    <b>₹{balances[user]}</b>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
+        {entries.length !== 0 && (
+          <>
+            <div className="profiles">
+              <h3>people you owe money to</h3>
+              {users
+                .filter((user) => user !== localStorage.getItem("user"))
+                .filter((user) => balances[user] < 0)
+                .map((user) => {
+                  return (
+                    <div className="profile" key={user}>
+                      <div className="owe-profile-info">
+                        <div className="owe-profile">
+                          {user.substring(0, 1) +
+                            user.substring(user.length, user.length - 1)}
+                        </div>
+                        <i>{user}</i>
+                      </div>
+                      <div className="owe-info">
+                        <b>you owe:</b>
+                        <b>₹{Math.abs(balances[user])}</b>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+            <div className="profiles">
+              <h3>people who owe money to you</h3>
+              {users
+                .filter((user) => user !== localStorage.getItem("user"))
+                .filter((user) => balances[user] > 0)
+                .map((user) => {
+                  return (
+                    <div className="profile" key={user}>
+                      <div className="owe-profile-info">
+                        <div className="owe-profile">
+                          {user.substring(0, 1) +
+                            user.substring(user.length, user.length - 1)}
+                        </div>
+                        <i>{user}</i>
+                      </div>
+                      <div className="owe-info">
+                        <b>owes you:</b>
+                        <b>₹{balances[user]}</b>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </>
+        )}
       </div>
       <h1
-      className="close"
+        className="close"
         onClick={() => {
           setPop(!pop);
         }}
       >
-        close   
+        close
       </h1>
     </div>
   );
