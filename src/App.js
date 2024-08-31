@@ -3,7 +3,6 @@ import axiosInstance from "./components/api-handling";
 import Login from "./components/login";
 import Board from "./components/board";
 import Editor from "./components/editor";
-import Chart from "./components/stats";
 import "./App.css";
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
       .then((res) => {
         setLoadingEntries(false);
         setEntries(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.error(err));
       

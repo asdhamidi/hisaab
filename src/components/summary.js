@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import OweDetails from "./owe-details";
 import Activites from "./activities";
+import Chart from "./stats";
 
 const Summary = ({ entries, users }) => {
   const [oweScreen, setOwescreen] = useState(false);
   const [activitesScreen, setActivitesScreen] = useState(false);
+  const [chartsScreen, setChartsScreen] = useState(false);
 
   const calculateSpent = () => {
     const currentUser = localStorage.getItem("user");
@@ -25,7 +27,12 @@ const Summary = ({ entries, users }) => {
         <p className="summary-title">your spending:</p>
         {calculateSpent()}
       </div>
-      {/* <div className="summary-comp">
+      <div
+        className="summary-comp"
+        onClick={() => {
+          setChartsScreen(!chartsScreen);
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -45,7 +52,7 @@ const Summary = ({ entries, users }) => {
           <path d="M12 17l0 -1" />
           <path d="M15 17l0 -3" />
         </svg>
-      </div> */}
+      </div>
       <div className="summary-comp">
         <svg
           onClick={() => {
@@ -106,6 +113,12 @@ const Summary = ({ entries, users }) => {
           pop={oweScreen}
           setPop={setOwescreen}
           users={users}
+        />
+      )}
+      {chartsScreen && (
+        <Chart
+          setChartsScreen={setChartsScreen}
+          chartsScreen={chartsScreen}
         />
       )}
     </div>

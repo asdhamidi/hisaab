@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-
 const Activites = ({ entries, activitesScreen, setActivitesScreen }) => {
   return (
     <div className="pop pop-active pop-details">
