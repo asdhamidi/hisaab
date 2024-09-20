@@ -2,7 +2,7 @@ import React from "react";
 
 const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
   return (
-    <div className={popUpVisible}>
+    <div className="msg-details-pop-up pop-up-details pop-up-details-active ">
       <h2>entry details</h2>
       <hr />
       <div className="pop-msg-details entries">
@@ -86,7 +86,7 @@ const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
       </div>
       <h1
         onClick={() => {
-          setPopUpVisible("pop-up-details");
+          setPopUpVisible(false);
           setPopUpEntry({});
         }}
       >

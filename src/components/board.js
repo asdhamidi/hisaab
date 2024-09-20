@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./navbar";
 import Summary from "./summary";
 import Popup from "./pop-up";
@@ -19,9 +19,8 @@ const Board = ({
   loadingEntries,
 }) => {
   const [popUpEntry, setPopUpEntry] = useState({});
-  const [popUpVisible, setPopUpVisible] = useState("pop-up-details");
-  const currentMonth = new Date().getMonth() + 1;
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const [popUpVisible, setPopUpVisible] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   return (
     <div className="board">
@@ -82,12 +81,12 @@ const Board = ({
         })}
       </div>
       <Summary entries={filteredEntries} users={users} month={selectedMonth} />
-      {popUpVisible.includes("pop-up-details-active") && (
+      {popUpVisible && (
         <>
           <div
             className="blur"
             onClick={() => {
-              setPopUpVisible("pop-up-details");
+              setPopUpVisible(false);
               setPopUpEntry({});
             }}
           ></div>

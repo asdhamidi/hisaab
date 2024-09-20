@@ -102,7 +102,7 @@ const Login = ({ loadEntries, setloggedIn }) => {
               </button>
             </div>
             {register === false && (
-              <>
+              <form>
                 <input
                   type="text"
                   placeholder="username"
@@ -119,13 +119,17 @@ const Login = ({ loadEntries, setloggedIn }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <button className="submit-btn" onClick={handleLogin}>
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  onClick={handleLogin}
+                >
                   login
                 </button>
-              </>
+              </form>
             )}
             {register === true && (
-              <>
+              <form>
                 <input
                   type="text"
                   placeholder="username"
@@ -149,10 +153,14 @@ const Login = ({ loadEntries, setloggedIn }) => {
                   onChange={(e) => setRegistrationCode(e.target.value.trim())}
                   required
                 />
-                <button className="submit-btn" onClick={handleRegistration}>
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  onClick={handleRegistration}
+                >
                   register
                 </button>
-              </>
+              </form>
             )}
           </div>
         </>

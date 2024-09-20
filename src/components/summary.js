@@ -24,8 +24,8 @@ const Summary = ({ entries, users, month }) => {
   return (
     <div className="summary">
       <div className="summary-comp owe">
-        <p className="summary-title">your spending:</p>
-        {calculateSpent()}
+        <p className="summary-title">your have spent:</p>
+        <b>₹{calculateSpent()}</b>
       </div>
       <div
         className="summary-comp"
@@ -105,6 +105,7 @@ const Summary = ({ entries, users, month }) => {
           entries={entries}
           setActivitesScreen={setActivitesScreen}
           activitesScreen={activitesScreen}
+          month={month}
         />
       )}
       {oweScreen && (
@@ -120,6 +121,7 @@ const Summary = ({ entries, users, month }) => {
           setChartsScreen={setChartsScreen}
           chartsScreen={chartsScreen}
           month={month}
+          entries={entries}
         />
       )}
     </div>

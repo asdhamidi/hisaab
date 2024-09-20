@@ -4,7 +4,7 @@ import axiosInstance from "./api-handling";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
+const Chart = ({ title, chartsScreen, setChartsScreen, month, entries }) => {
   const [dataPoints, setDataPoints] = useState([]);
 
   const choiceChange = (choice) => {
@@ -22,19 +22,17 @@ const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
           new_data = renameKeyInJson(new_data, "total_price", "y");
           let options = {
             title: {
-              text: "Combined Expenses", // Use prop value or default if not provided
+              text: "spending over month",
             },
             axisX: {
-              valueFormatString: "##/" + (new Date().getMonth() + 1),
+              title: "days->",
             },
             axisY: {
-              title: "expenses",
-              prefix: "₹",
+              title: "spending",
             },
             data: [
               {
-                yValueFormatString: "###",
-                type: "line",
+                type: "column",
                 dataPoints: new_data,
               },
             ],
@@ -53,13 +51,13 @@ const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
           new_data = renameKeyInJson(new_data, "total_price", "y");
           let options = {
             title: {
-              text: "Expense by person",
+              text: "spending by person",
             },
             axisX: {
-              title: "Us",
+              title: "",
             },
             axisY: {
-              title: "Expenses",
+              title: "spending",
             },
             data: [
               {
@@ -79,8 +77,6 @@ const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
   };
 
   useEffect(() => {
-    let req = { month: new Date().getMonth() + 1 };
-
     axiosInstance
       .get("/stats/daily/" + month)
       .then((response) => {
@@ -92,19 +88,17 @@ const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
         new_data = renameKeyInJson(new_data, "total_price", "y");
         setOptions({
           title: {
-            text: "Combined Expenses", // Use prop value or default if not provided
+            text: "spending over month",
           },
           axisX: {
-            valueFormatString: "##/" + (new Date().getMonth() + 1),
+            title: "days->",
           },
           axisY: {
-            title: "expenses",
-            prefix: "₹",
+            title: "spending",
           },
           data: [
             {
-              yValueFormatString: "###",
-              type: "line",
+              type: "column",
               dataPoints: new_data,
             },
           ],
@@ -146,7 +140,6 @@ const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
     const [day, month, year] = dateString.split("/").map(Number);
 
     const fullYear = 2000 + year; // Assumes 2000-2049 range for two-digit years
-    const dateObj = new Date(fullYear, month - 1, day);
 
     return day;
   }
@@ -172,25 +165,32 @@ const Chart = ({ title, chartsScreen, setChartsScreen, month }) => {
   });
 
   return (
-    <div className="pop pop-active pop-details">
-      <div className="owe-controls charts-owe-controls">
-        <h2>stats</h2>
-        <select
-          className="month"
-          name="month"
-          id="month"
-          onChange={(event) => {
-            choiceChange(event.target.value);
-          }}
-        >
-          <option value="1">combined expense</option>
-          <option value="2">person wise</option>
-        </select>
+    <div className="pop pop-active">
+      <div style={{ width: "100%" }} className="chart-container">
+        <div className="owe-controls charts-owe-controls">
+          <h2>stats</h2>
+          <select
+            className="month"
+            name="month"
+            id="month"
+            onChange={(event) => {
+              choiceChange(event.target.value);
+            }}
+          >
+            <option value="1">combined expense</option>
+            <option value="2">person wise</option>
+          </select>
+        </div>
+        <hr style={{ width: "100%" }}></hr>
+        <CanvasJSChart options={options} />
+        <div style={{ marginTop: "2rem", fontSize :"1.5rem" }}>
+          Total Spending: 
+          <b>₹{entries.reduce((sum, item) => sum + Number(item.price), 0)}</b>
+        </div>
       </div>
-      <hr style={{ width: "100%" }}></hr>
-      <CanvasJSChart options={options} />
+
       <h1
-        className="activities-close close"
+        className="close"
         onClick={() => {
           setChartsScreen(!chartsScreen);
         }}

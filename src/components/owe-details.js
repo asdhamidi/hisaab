@@ -43,7 +43,11 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
         {entries.length !== 0 && (
           <>
             <div className="profiles">
-              <h3>people you owe money to</h3>
+              {users
+                .filter((user) => user !== localStorage.getItem("user"))
+                .filter((user) => balances[user] < 0).length > 0 && (
+                <h3>people you owe money to</h3>
+              )}
               {users
                 .filter((user) => user !== localStorage.getItem("user"))
                 .filter((user) => balances[user] < 0)
@@ -58,7 +62,7 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
                         <b>{user}</b>
                       </div>
                       <div className="owe-info">
-                        <em>you owe:</em>
+                        <em>you owe</em>
                         <b>₹{Math.abs(balances[user])}</b>
                       </div>
                     </div>
@@ -66,7 +70,12 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
                 })}
             </div>
             <div className="profiles">
-              <h3>people who owe money to you</h3>
+              {users
+                .filter((user) => user !== localStorage.getItem("user"))
+                .filter((user) => balances[user] > 0).length > 0 && (
+                <h3>people who owe money to you</h3>
+              )}
+
               {users
                 .filter((user) => user !== localStorage.getItem("user"))
                 .filter((user) => balances[user] > 0)
@@ -81,7 +90,7 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
                         <b>{user}</b>
                       </div>
                       <div className="owe-info">
-                        <em>owes you:</em>
+                        <em>owes you</em>
                         <b>₹{balances[user]}</b>
                       </div>
                     </div>

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import "./App.css";
 import axiosInstance from "./components/api-handling";
-import Login from "./components/login";
 import Board from "./components/board";
 import Editor from "./components/editor";
-import "./App.css";
+import Login from "./components/login";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -22,7 +22,6 @@ function App() {
         setEntries(res.data);
       })
       .catch((err) => console.error(err));
-      
   };
 
   const makeEntry = (entry) => {
@@ -45,7 +44,7 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  const deleteEntry = (id, entry) => {
+  const deleteEntry = (id) => {
     axiosInstance
       .delete("/entries/" + id)
       .then(() => {
@@ -62,12 +61,10 @@ function App() {
       loadEntries();
     }
 
-    const users = ["asad", "aaryan", "piyush", "sachin", "saurav"];
-    setUsers(users);
-    // axiosInstance
-    //   .get("/users")
-    //   .then((res) => setUsers(res.data))
-    //   .catch((err) => console.error(err));
+    axiosInstance
+      .get("/users")
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
