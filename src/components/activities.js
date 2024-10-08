@@ -12,12 +12,53 @@ const Activites = ({ activitesScreen, setActivitesScreen, month }) => {
       .catch((err) => console.error(err));
   }, [setActivites]);
 
+  function formatDate(date) {
+    // Get hours, minutes, and determine AM/PM
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const period = hours >= 12 ? "PM" : "AM";
+
+    // Convert to 12-hour format
+    hours = hours % 12 || 12; // Convert 0 (midnight) to 12
+
+    // Get day, month, and year (last two digits)
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are 0-based
+    const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
+
+    // Format minutes to be always two digits
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+
+    // Return the formatted date string
+    return `${hours}:${formattedMinutes} ${period} - ${day}/${month}/${year}`;
+  }
+
+  function parseDate(dateStr, isUTC = true) {
+    const [timePart, datePart] = dateStr.split(" - ");
+    const [day, month, year] = datePart.split("/").map(Number);
+    const [time, period] = timePart.split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
+
+    if (period === "PM" && hours !== 12)
+      hours += 12; // PM means 12-hour offset unless it's noon (12:00 PM)
+    else if (period === "AM" && hours === 12) hours = 0; // Midnight case
+
+    const fullYear = 2000 + year; // Assuming the year is 20xx
+
+    let date;
+    if (isUTC) date = new Date(Date.UTC(fullYear, month - 1, day, hours, minutes));
+    else date = new Date(fullYear, month - 1, day, hours, minutes);
+
+    if (isUTC) return formatDate(date);
+    return formatDate(date);
+  }
+
   return (
     <div className="pop pop-active ">
       <div className="owe-controls">
         <h2>activities</h2>
+        <hr style={{ width: "100%" }}></hr>
       </div>
-      <hr style={{ width: "100%" }}></hr>
       <div className="activites-list">
         {activities.map((entry) => (
           <div className="activity">
@@ -32,6 +73,7 @@ const Activites = ({ activitesScreen, setActivitesScreen, month }) => {
                   : entry.user}{" "}
               </b>
               <i>{entry.activity}</i>
+              <i> - {parseDate(entry.created_at)}</i>
             </p>
           </div>
         ))}

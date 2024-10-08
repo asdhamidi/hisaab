@@ -1,13 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Sintony:wght@400;700&display=swap');
 :root {
     height: 100vh;
     box-sizing: border-box;
     transition: all ease-in-out 250ms;
-    font-family: "Lexend Mega";
+    font-family: "Sintony";
     user-select: none;
-    background-color: var(--text-color-highlight) FFF;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23BBBBBB' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
     --highlight: rgb(138, 43, 226);
     --text-color-highlight: #fff;
     --text-color: #000;
@@ -46,11 +45,12 @@ input,
 select {
     background-color: var(--text-color-highlight);
     color: var(--text-color);
+    border-radius: 0.5rem;
 }
 
 body {
-    font-family: monospace, sans-serif;
     width: 100vw;
+    font-family: Sintony;
 }
 
 .App {
@@ -122,6 +122,7 @@ select {
     border: none;
     color: var(--text-color);
     border: 1px solid #bbb;
+    border-radius: 0.5rem;
 }
 
 input {
@@ -174,13 +175,17 @@ form .submit-btn:hover {
 button,
 select {
     border: none;
-    padding: 0.5rem;
+    padding: 0.75rem;
     font-weight: bold;
-    border: 3px solid var(--text-color);
-    box-shadow: 5px 5px var(--text-color);
+    border: 2px solid var(--text-color);
     background-color: var(--text-color-highlight);
     transition: all ease-in-out 250ms;
     color: var(--text-color);
+    border-radius: 0.5rem;
+}
+
+select {
+    border: none;
 }
 
 button:hover {
@@ -210,7 +215,7 @@ nav {
     justify-content: space-between;
     gap: 0;
     width: 100%;
-    padding: 0 1rem;
+    padding: 0 .5rem;
     box-sizing: border-box;
     position: sticky;
     background-color: var(--text-color-highlight);
@@ -227,33 +232,128 @@ nav {
     scrollbar-width: none;
     width: 100%;
     flex: 1;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
 }
 
-.entry {
+.entry, .entry-deets-fs {
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
     background-color: var(--text-color-highlight);
     border-bottom: 1px solid #ddd;
     height: auto;
+    padding: 1rem 0.75rem;
+    gap: 0.5rem;
+}
+
+.board.entries .entry::after {
+    content: ">";
+}
+
+.entry-deets {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    gap: 0;
+}
+
+.entry-items {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.entry-paid-by {
+    font-size: 0.75rem;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.25rem;
+}
+
+.entry-date {
+    font-size: 0.55rem;
+    font-weight: 300;
+    color: gray;
+}
+
+.entry-price {
+    font-size: 1.25rem;
+    font-weight: 500;
+    height: 100%;
+}
+
+.entry-other-deets {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column-reverse;
+    gap: 0.25rem;
+}
+
+.entry-right {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+
+.board-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: white;
+    background-color: blue;
+    padding: .5rem;
+    border-radius: 25%;
+    height: 100%;
+    width: 1.5rem;
 }
 
 em {
     margin: 0;
     flex: 1;
-    text-align: center;
     font-style: normal;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 0.75rem;
-    padding: 0.5rem;
+    align-items: flex-start;
+    justify-content: flex-start;
     text-wrap: wrap;
     box-sizing: border-box;
     height: auto;
-    width: 5ch;
 }
 
-.entry em {
+.pop-msg-details .entry {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pop-msg-details .entry em{
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0;
+    text-align: left;
+}
+
+.pop-msg-details .entry{
+    padding: 0.5rem 0;
+    gap: .25rem;
+}
+
+.pop-msg-details .entry em:first-child{
+    font-size: .75rem;
+    color: #999;
+}
+
+.pop-msg-details .entry em:last-child{
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 
 .entry-header {
@@ -263,27 +363,29 @@ em {
 .entry-header em {
     font-weight: bold;
     padding: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
 }
 
 .summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0;
+    padding: .5rem;
     background-color: #fff;
     box-shadow: 0px 3px var(--text-color);
     position: fixed;
     bottom: 0;
-    border-top: 3px solid black;
+    border-top: 2px solid black;
     box-sizing: border-box;
+    gap: 0.75rem;
+
 }
 
 .summary-comp {
     font-weight: bold;
-    padding: 0.75rem 1rem;
     text-align: center;
     box-sizing: border-box;
+    flex: 1;
 }
 
 .summary-comp svg {
@@ -292,26 +394,54 @@ em {
 }
 
 .summary-comp b {
-    font-size: 1.25rem;
+    font-size: 2rem;
 }
 
-.owe {
-    flex: 1;
+.nav-owe {
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.owe-1, .owe-2  {
+    flex: 1;
+    padding: 0.5rem;
+    gap: 0.25rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    color: black;
+    background-color: #aadb1e;
+    margin: 0.5rem 0.25rem;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+}
+
+.owe-2 {
+    flex: 1;
+    background-color: #007;
+    color: white;
+    align-items: flex-start;
+}
+
+
+.owe-1 p, .owe-2 p {
+    color: #555;
+    font-weight: 300;
+    font-size: 0.75rem;
+}
+
+.owe-2 p {
+    color: white;
+}
+
 .summary-title {
     margin: 0;
     font-weight: 100;
 }
-.summary-comp:first-child {
-    border-right: 3px solid black;
-}
 
-.summary-comp:nth-child(2) {
-    border-right: 1px solid black;
-}
-.summary-comp:nth-child(3) {
-    border-right: 1px solid black;
-}
 .top {
     position: sticky;
     width: 100%;
@@ -320,15 +450,19 @@ em {
 
 .editor {
     background-color: #fff;
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: flex-start;
-    justify-content: flex;
+    justify-content: flex-end;
     flex-direction: column;
-    padding: 0rem;
-    outline: 3px solid black;
-    box-shadow: 7px 7px black;
+    gap: 1rem;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    border: 2px solid black;
+    border-radius: 1rem 1rem 0 0;
 }
 
 input {
@@ -339,23 +473,30 @@ input {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 2px solid black;
-    padding: 1rem;
+    justify-content: center;
+    gap: 1rem;
     box-sizing: border-box;
 }
 
-.editor-controls h1 {
+.editor h1 {
     margin: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 1.5rem;
 }
 
 .editor-inputs input {
     width: 100%;
     box-sizing: border-box;
     padding: 0.5rem;
-    border: none;
-    color: var(--text-color);
-    border: 1px solid #bbb;
+    color: #777;
+    border: 2px solid #bbb;
+    border-radius: 0.5rem;
+}
+
+.editor-controls button{ 
+    flex: 1;
+    font-size: 1rem;
 }
 
 .editor-controls button:first-child {
@@ -380,14 +521,16 @@ label {
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;
+    color: #333;
     font-size: 0.9rem;
 }
+
+
 
 .editor-inputs {
     display: flex;
     align-items: center;
-    padding: 1rem;
     justify-content: center;
     flex-direction: column;
     gap: 0.5rem;
@@ -399,11 +542,24 @@ label {
     height: 10ch;
     text-wrap: wrap;
     width: 100%;
+    border: 2px solid #bbb;
+    border-radius: .5rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
 }
 
 .editor-inputs .logout {
     width: 100%;
     padding: 0.5rem;
+}
+
+.greeting {
+    margin: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    font-weight: 800;
+    width: 100%;
+    text-align: center;
 }
 
 .pop {
@@ -433,9 +589,14 @@ label {
 .owe-controls {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
     padding: 0.5rem 0;
+}
+
+.owe-controls hr{
+    background-color: #000;
+    border: 1px solid black;
 }
 
 .pop h1 {
@@ -446,7 +607,7 @@ label {
     color: white;
     display: flex;
     border: 3px solid var(--text-color);
-    box-shadow: 5px 5px var(--text-color); 
+    border-radius: 0.5rem;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
@@ -474,18 +635,26 @@ label {
     padding: 0.25rem 0.75rem;
 }
 
+.logd {
+    background-color: #007;
+}
+
 nav h1 {
     font-family: "Baloo 2", sans-serif;
     text-align: center;
+    flex: 1;
+    margin: 0.5rem auto;
 }
 
 .new-entry,
 .download {
     display: flex;
-    padding: 0.25rem 0.75rem;
-    background-color: green;
+    padding: 0.75rem;
+    color: white;
+    background-color: #219653;
     justify-content: center;
     align-items: center;
+    flex: 5;
 }
 
 .nav-controls {
@@ -496,11 +665,15 @@ nav h1 {
 }
 
 .nc1 {
-    flex: 1;
     align-items: flex-start;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    border: 2px solid black;
+    border-radius: 0.25rem;
+    height: 100%;
+    padding: 0.2rem;
+    flex: 1;
 }
 
 .month {
@@ -509,10 +682,6 @@ nav h1 {
 
 .download {
     background-color: blue;
-}
-
-.nc2 {
-    flex: 1;
 }
 
 h2 {
@@ -570,14 +739,11 @@ h2 {
     margin: 0.25rem;
 }
 
-.pop-up-details h2 {
-    width: 100%;
-    text-align: center;
-    margin: 0.5rem 0;
+.pop-up-details h2, .owe-controls h2 {
+    flex: 1;
 }
-.pop-up-details hr {
-    width: 100%;
-    margin: 0;
+.pop-up-details hr, .owe-controls hr {
+    flex: 4;
 }
 
 .pop-up-details h1 {
@@ -587,14 +753,14 @@ h2 {
     width: 100%;
     margin: 0;
     border: 3px solid var(--text-color);
-    box-shadow: 5px 5px var(--text-color);
+    border-radius: 0.5rem;
     box-sizing: border-box; 
 }
 
 .pop-msg-details {
     width: 100%;
     text-align: center;
-    padding: 0.5rem;
+    padding: 0 1rem;
     z-index: 3;
     margin-bottom: 0;
 }
@@ -605,7 +771,7 @@ h2 {
 }
 
 .pop-msg-details .entries {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 .updated {
@@ -618,6 +784,15 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid #bbb;
+    border-radius: .5rem;
+}
+
+.edt-chk label {
+    border-right: 2px solid #DDD;
+}
+.edt-chk label:last-child {
+    border: none;
 }
 
 .edt-chk input {
@@ -629,7 +804,6 @@ h2 {
     flex: 1;
     align-items: center;
     justify-content: center;
-    border: 1px solid #999;
     padding: 0.5rem 0.1rem;
 }
 
@@ -656,6 +830,7 @@ h2 {
     width: 100%;
     background-color: red;
     color: white;
+    font-size: 1rem;
 }
 
 .delete-msg {
@@ -669,7 +844,6 @@ h2 {
     width: 90%;
     background-color: #fff;
     outline: 3px solid black;
-    box-shadow: 6px 6px black;
     z-index: 3;
     left: 5%;
     top: 25%;
@@ -679,6 +853,7 @@ h2 {
     flex-direction: column;
     position: absolute;
     z-index: 3;
+    border-radius: .5rem;
 }
 
 .delete-msg h1 {
@@ -712,6 +887,10 @@ h2 {
     background-color: green;
 }
 
+.breakdown p {
+    margin: 0;
+}
+
 .profiles {
     display: flex;
     align-items: flex-start;
@@ -734,9 +913,9 @@ h2 {
     box-sizing: border-box;
     border: none;
     padding: 0.5rem;
-    border: 3px solid var(--text-color);
+    border: 2px solid #777;
     background-color: var(--text-color-highlight);
-    box-shadow: 5px 5px var(--text-color);
+    border-radius: 0.5rem;
 }
 
 .owe-profile {
@@ -747,7 +926,7 @@ h2 {
     color: white;
     background-color: blue;
     padding: 1rem;
-    border-radius: 50%;
+    border-radius: .5rem;
     height: 1rem;
     width: 1rem;
 }
@@ -791,7 +970,7 @@ h3 {
 
 .activites-list {
     overflow: scroll;
-    padding: 0.5rem;
+    padding: 0 0.5rem;
     width: 100%;
     margin-bottom: 0.5rem;
     box-sizing: border-box;
@@ -810,7 +989,7 @@ h3 {
     padding: 0.5rem;
     border: 3px solid var(--text-color);
     background-color: var(--text-color-highlight);
-    box-shadow: 5px 5px var(--text-color);
+    border-radius: 0.5rem;
 }
 
 .charts {
@@ -831,3 +1010,21 @@ h3 {
     justify-content: center;
     flex-direction: column;
 }
+
+#price-entry {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    font-size: 4rem;
+    text-align: right;
+    flex: 1;
+}
+
+#price-entry input{
+    outline: none;
+    border: none;
+    font-size: 4rem;
+    text-align: left;
+}
+

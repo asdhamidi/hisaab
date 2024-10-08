@@ -101,22 +101,21 @@ const Editor = ({
 
   return (
     <div className="editor">
-      <div className="editor-controls">
-        <button
-          onClick={() => {
-            setEditor(false);
-            setCurrentEntry(null);
-          }}
-        >
-          back
-        </button>
-        {entry === null && <h1>new entry</h1>}
-        {entry !== null && <h1>edit entry</h1>}
-        {entry === null && <button onClick={handleSubmit}>submit</button>}
-        {entry !== null && <button onClick={handleUpdate}>update</button>}
-      </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
       <div className="editor-inputs">
+        <label id="price-entry">
+          ₹
+          <input
+            placeholder="price"
+            type="number"
+            value={updatedEntry.price}
+            onChange={(event) =>
+              setUpdatedEntry((prevState) => ({
+                ...prevState,
+                price: event.target.value,
+              }))
+            }
+          />
+        </label>
         <label>
           items
           <input
@@ -127,20 +126,6 @@ const Editor = ({
               setUpdatedEntry((prevState) => ({
                 ...prevState,
                 items: event.target.value,
-              }))
-            }
-          />
-        </label>
-        <label>
-          price
-          <input
-            placeholder="price"
-            type="number"
-            value={updatedEntry.price}
-            onChange={(event) =>
-              setUpdatedEntry((prevState) => ({
-                ...prevState,
-                price: event.target.value,
               }))
             }
           />
@@ -162,7 +147,7 @@ const Editor = ({
         </label>
         <div className="edt-chk">
           <label>
-            Owed by all
+            owed by all
             <input
               type="checkbox"
               checked={owedByAll}
@@ -214,7 +199,7 @@ const Editor = ({
             (name) => name !== localStorage.getItem("user")
           ).length >= 1 &&
           updatedEntry.price !== "" && (
-            <div>
+            <div className="breakdown">
               <p>
                 {" "}
                 <b>breakdown: </b>
@@ -274,6 +259,19 @@ const Editor = ({
             </div>
           </>
         )}
+      </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <div className="editor-controls">
+        <button
+          onClick={() => {
+            setEditor(false);
+            setCurrentEntry(null);
+          }}
+        >
+          back
+        </button>
+        {entry === null && <button onClick={handleSubmit}>submit</button>}
+        {entry !== null && <button onClick={handleUpdate}>update</button>}
       </div>
     </div>
   );

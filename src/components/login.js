@@ -76,7 +76,7 @@ const Login = ({ loadEntries, setloggedIn }) => {
       {loggigIn === false && (
         <>
           <div className="headings">
-            <h1>hisaab</h1>
+            <h1>हिसाब</h1>
           </div>
           <div className="front-page-contents">
             <div className="front-page-options">

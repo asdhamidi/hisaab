@@ -57,8 +57,8 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
+      loadEntries();  
       setLoggedIn(true);
-      loadEntries();
     }
 
     axiosInstance
@@ -70,6 +70,7 @@ function App() {
   return (
     <div className="App">
       {editor === true && (
+        <>
         <Editor
           makeEntry={makeEntry}
           setEditor={setEditor}
@@ -80,11 +81,13 @@ function App() {
           users={users}
           deleteEntry={deleteEntry}
         />
+        <div className="blur"></div>
+        </>
       )}
       {loggedIn === false && (
         <Login setloggedIn={setLoggedIn} loadEntries={loadEntries} />
       )}
-      {loggedIn === true && editor === false && (
+      {loggedIn === true  && (
         <Board
           entries={entries}
           filteredEntries={filteredEntries}

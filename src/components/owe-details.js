@@ -38,8 +38,8 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
       <div className="pop-details">
         <div className="owe-controls">
           <h2>owe matrix</h2>
+          <hr style={{ width: "100%" }}></hr>
         </div>
-        <hr style={{ width: "100%" }}></hr>
         {entries.length !== 0 && (
           <>
             <div className="profiles">

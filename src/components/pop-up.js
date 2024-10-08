@@ -3,8 +3,10 @@ import React from "react";
 const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
   return (
     <div className="msg-details-pop-up pop-up-details pop-up-details-active ">
-      <h2>entry details</h2>
-      <hr />
+      <div className="owe-controls">
+        <h2>entry details</h2>
+        <hr style={{ width: "100%" }}/>
+      </div>
       <div className="pop-msg-details entries">
         <div className="entry">
           <em>items</em>
@@ -19,7 +21,7 @@ const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
           <em>{entry.paid_by}</em>
         </div>
         <div className="entry">
-          <em>owed by:</em>
+          <em>owed by</em>
           <em>{entry.owed_by && entry.owed_by.join(", ")}</em>
         </div>
         <div className="entry">
@@ -42,9 +44,9 @@ const Popup = ({ entry, popUpVisible, setPopUpVisible, setPopUpEntry }) => {
         {/* Check for previous versions and display them if they exist */}
         {entry.previous_versions && entry.previous_versions.length > 0 && (
           <>
-            <h3>Previous Versions:</h3>
+            <h3>previous versions</h3>
             {entry.previous_versions.map((version, index) => (
-              <div key={index} className="entries">
+              <div key={index} className="entries prev">
                 <strong>version {index + 1}:</strong>
                 <div className="entry">
                   <em>items</em>

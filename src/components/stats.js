@@ -169,23 +169,23 @@ const Chart = ({ title, chartsScreen, setChartsScreen, month, entries }) => {
       <div style={{ width: "100%" }} className="chart-container">
         <div className="owe-controls charts-owe-controls">
           <h2>stats</h2>
-          <select
-            className="month"
-            name="month"
-            id="month"
-            onChange={(event) => {
-              choiceChange(event.target.value);
-            }}
-          >
-            <option value="1">combined expense</option>
-            <option value="2">person wise</option>
-          </select>
+          <hr style={{ width: "100%" }}></hr>
         </div>
-        <hr style={{ width: "100%" }}></hr>
+        <select
+          className="month"
+          name="month"
+          id="month"
+          onChange={(event) => {
+            choiceChange(event.target.value);
+          }}
+        >
+          <option value="1">combined expense</option>
+          <option value="2">person wise</option>
+        </select>
         <CanvasJSChart options={options} />
-        <div style={{ marginTop: "2rem", fontSize :"1.5rem" }}>
-          Total Spending: 
-          <b>₹{entries.reduce((sum, item) => sum + Number(item.price), 0)}</b>
+        <div style={{ marginTop: "2rem", fontSize: "1.5rem" }}>
+          total spending:
+          <b> ₹{entries.reduce((sum, item) => sum + Number(item.price), 0)}</b>
         </div>
       </div>
 
