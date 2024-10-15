@@ -22,7 +22,58 @@ const Navbar = ({
     );
   }, [entries, selectedMonth, setFilteredEntries]);
 
-  const [SO, setSO] = useState({ 1: "⇅", 2: "⇅", 3: "⇅", 4: "⇅", 5: "⇅" });
+  function filterYourEntries() {
+    if (!yourEntries)
+      setFilteredEntries(
+        entries.filter((entry) => {
+          const datePart = entry.date.split(",")[0];
+          const month = datePart.split("/")[1];
+          return (
+            Number(month) === selectedMonth &&
+            entry.paid_by === localStorage.getItem("user")
+          );
+        })
+      );
+    else
+      setFilteredEntries(
+        entries.filter((entry) => {
+          const datePart = entry.date.split(",")[0];
+          const month = datePart.split("/")[1];
+          return Number(month) === selectedMonth;
+        })
+      );
+
+    setyourEntries(!yourEntries);
+    if(yourOweEntries) setyourOweEntries(!yourOweEntries)
+  }
+  function filterYourOweEntries() {
+    if (!yourOweEntries)
+      setFilteredEntries(
+        entries.filter((entry) => {
+          const datePart = entry.date.split(",")[0];
+          const month = datePart.split("/")[1];
+          return (
+            Number(month) === selectedMonth &&
+            entry.owed_by.includes(localStorage.getItem("user"))
+          );
+        })
+      );
+    else
+      setFilteredEntries(
+        entries.filter((entry) => {
+          const datePart = entry.date.split(",")[0];
+          const month = datePart.split("/")[1];
+          return Number(month) === selectedMonth;
+        })
+      );
+
+    setyourOweEntries(!yourOweEntries);
+    if(yourEntries) setyourEntries(!yourEntries)
+  }
+
+  const [yourEntries, setyourEntries] = useState(false);
+  const [yourOweEntries, setyourOweEntries] = useState(false);
+
   // Function to download JSON data as CSV
   function downloadJSONAsCSV(filteredEntries) {
     let csvData = jsonToCsv(filteredEntries); // Convert JSON to CSV
@@ -152,16 +203,35 @@ const Navbar = ({
         </div>
       </nav>
       <div className="nav-owe">
-        <div className="summary-comp owe-1">
-          <p className="summary-title">your have spent:</p>
-          <b>₹{calculateSpent()}</b>
+        <div className="no-1">
+          <div className="summary-comp owe-1">
+            <p className="summary-title">your spent:</p>
+            <b>₹{calculateSpent()}</b>
+          </div>
+          <div className="summary-comp owe-2">
+            <p className="summary-title">total spending:</p>
+            <b>
+              ₹
+              {filteredEntries.reduce(
+                (sum, item) => sum + Number(item.price),
+                0
+              )}
+            </b>
+          </div>
         </div>
-        <div className="summary-comp owe-2">
-          <p className="summary-title">total spending:</p>
-          <b>
-            ₹
-            {filteredEntries.reduce((sum, item) => sum + Number(item.price), 0)}
-          </b>
+        <div className="no-2">
+          <button
+            onClick={filterYourEntries}
+            className={`${yourEntries ? "active-filter" : "filter"}`}
+          >
+            your entries
+          </button>
+          <button
+            onClick={filterYourOweEntries}
+            className={`${yourOweEntries ? "active-filter" : "filter"}`}
+          >
+            you owe
+          </button>
         </div>
       </div>
     </div>
