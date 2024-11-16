@@ -107,10 +107,7 @@ const Board = ({
                 }}
                 className="board-profile"
               >
-                {entry.items.substring(0, 1) +
-                  entry.items
-                    .charAt(Math.floor(Math.random() * entry.items.length))
-                    .toLowerCase()}
+                
               </div>
               <div className="entry-deets">
                 <div className="entry-items">
