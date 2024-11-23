@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/hisaab/static/css/main.fad7ac34.css",
-    "main.js": "/hisaab/static/js/main.ec91940d.js",
+    "main.css": "/hisaab/static/css/main.963060ee.css",
+    "main.js": "/hisaab/static/js/main.98e7bd44.js",
     "index.html": "/hisaab/index.html",
-    "main.fad7ac34.css.map": "/hisaab/static/css/main.fad7ac34.css.map",
-    "main.ec91940d.js.map": "/hisaab/static/js/main.ec91940d.js.map"
+    "main.963060ee.css.map": "/hisaab/static/css/main.963060ee.css.map",
+    "main.98e7bd44.js.map": "/hisaab/static/js/main.98e7bd44.js.map"
   },
   "entrypoints": [
-    "static/css/main.fad7ac34.css",
-    "static/js/main.ec91940d.js"
+    "static/css/main.963060ee.css",
+    "static/js/main.98e7bd44.js"
   ]
 }
