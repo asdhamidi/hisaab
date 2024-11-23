@@ -53,6 +53,16 @@ body {
     font-family: Sintony;
 }
 
+button,
+select {
+    border: none;
+    padding: 0.75rem;
+    font-weight: bold;
+    transition: all ease-in-out 250ms;
+    color: var(--text-color);
+    border-radius: 0.25rem;
+}
+
 .App {
     display: flex;
     align-items: flex-start;
@@ -62,6 +72,10 @@ body {
     box-sizing: border-box;
     padding-top: 0;
     margin: 0;
+    background-color: #CCCCFF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23d3d3ff' points='800 100 0 200 0 800 1600 800 1600 200'/%3E%3Cpolygon fill='%23dbdbff' points='800 200 0 400 0 800 1600 800 1600 400'/%3E%3Cpolygon fill='%23e2e2ff' points='800 300 0 600 0 800 1600 800 1600 600'/%3E%3Cpolygon fill='%23e9e9ff' points='1600 800 800 400 0 800'/%3E%3Cpolygon fill='%23f0f0ff' points='1280 800 800 500 320 800'/%3E%3Cpolygon fill='%23f8f8ff' points='533.3 800 1066.7 800 800 600'/%3E%3Cpolygon fill='%23FFFFFF' points='684.1 800 914.3 800 800 700'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .front-page,
@@ -78,25 +92,33 @@ body {
 
 .front-page {
     height: fit-content;
-    outline: 3px solid var(--text-color);
-    box-shadow: 7px 7px var(--text-color);
-    border-radius: .25rem;
-    padding: 0 1rem;
+    padding: .75rem;
+    width: 75%;
+    border-radius: 0.25rem;
+    flex-direction: column;
+    background-color: white;
+    gap: 0.5rem;
 }
 
 .headings h1 {
     font-size: 1.5rem;
+    margin: 0;
     font-family: "Baloo 2", sans-serif;
 }
+
+.headings svg {
+    scale: 1.5;
+}
+
 .headings {
-    rotate: -90deg;
-    width: 1ch;
-    text-align: center;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 1rem;
+    justify-content: flex-start;
+    gap: 0.75rem;
     padding: .5rem;
+    border-bottom: 1px solid #EEE;
+    box-sizing: border-box;
 }
 
 .front-page-contents {
@@ -105,7 +127,6 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: .25rem;
 }
 
 form {
@@ -148,9 +169,9 @@ form input:focus-visible {
 
 form .submit-btn {
     width: 100%;
-    border: 3px solid greenyellow;
+    border: 3px solid #003;
     color: white;
-    background-color: greenyellow;
+    background-color: #003;
 }
 
 form .submit-btn:hover {
@@ -162,40 +183,37 @@ form .submit-btn:hover {
     align-items: center;
     justify-content: center;
     background-color: var(--text-color-highlight);
+    gap: 1rem;
 }
 
 .front-page-options button {
-    flex: 1;
     margin: 0;
     box-shadow: none;
     border: none;
-    border-radius:  0 0 0.25rem 0.25rem;
+    border-radius: 0.25rem;
+    padding: .75rem;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.front-page-options  .active-btn {
+    background-color: #EEE;
+    flex: 1;
 }
 
 .front-page form {
-    padding: 1rem 0.5rem;
-}
-
-.active-btn {
-    background-color: #EEE;
-}
-
-button,
-select {
-    border: none;
+    width: 100%;
     padding: 0.75rem;
-    font-weight: bold;
-    background-color: var(--text-color-highlight);
-    transition: all ease-in-out 250ms;
-    color: var(--text-color);
-    border-radius: 0.25rem;
+}
+
+.credits{
+    margin-top: 0.25rem;
+    font-size: 1px;
+    color: #AAA;
 }
 
 select {
     border: none;
-}
-
-button:hover {
 }
 
 .board {
@@ -206,6 +224,7 @@ button:hover {
     justify-content: space-between;
     flex-direction: column;
     box-sizing: border-box;
+    background-color: white;
 }
 
 .content-container {
