@@ -46,7 +46,8 @@ const Activites = ({ activitesScreen, setActivitesScreen, month }) => {
     const fullYear = 2000 + year; // Assuming the year is 20xx
 
     let date;
-    if (isUTC) date = new Date(Date.UTC(fullYear, month - 1, day, hours, minutes));
+    if (isUTC)
+      date = new Date(Date.UTC(fullYear, month - 1, day, hours, minutes));
     else date = new Date(fullYear, month - 1, day, hours, minutes);
 
     if (isUTC) return formatDate(date);
@@ -60,23 +61,28 @@ const Activites = ({ activitesScreen, setActivitesScreen, month }) => {
         <hr style={{ width: "100%" }}></hr>
       </div>
       <div className="activites-list">
-        {activities.map((entry) => (
-          <div className="activity">
-            <div className="owe-profile activity-profile">
-              {entry.user.substring(0, 1) +
-                entry.user.substring(entry.user.length, entry.user.length - 1)}
+        {activities
+          .filter((entry) => entry.user !== localStorage.getItem("user"))
+          .map((entry) => (
+            <div className="activity">
+              <div className="owe-profile activity-profile">
+                {entry.user.substring(0, 1) +
+                  entry.user.substring(
+                    entry.user.length,
+                    entry.user.length - 1
+                  )}
+              </div>
+              <p>
+                <b>
+                  {entry.user === localStorage.getItem("user")
+                    ? "You"
+                    : entry.user}{" "}
+                </b>
+                <i>{entry.activity}</i>
+                <i> - {parseDate(entry.created_at)}</i>
+              </p>
             </div>
-            <p>
-              <b>
-                {entry.user === localStorage.getItem("user")
-                  ? "You"
-                  : entry.user}{" "}
-              </b>
-              <i>{entry.activity}</i>
-              <i> - {parseDate(entry.created_at)}</i>
-            </p>
-          </div>
-        ))}
+          ))}
       </div>
       <h1
         className="close"

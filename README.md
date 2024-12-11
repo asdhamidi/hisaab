@@ -2,7 +2,7 @@
 
 ### Overview
 
-**Hisaab** is a React-based web application which I created as a website for my flatmates to manage and log our joint expenses, the app allows users to add, track, and manage entries for items purchased, and calculates how much each person owes. The app also has charts windows and activities pane. The design of the app follows brutalism web design principles, emphasizing functionality with a minimalist and utilitarian aesthetic.
+**Hisaab** is a React-based web application which I created as a website for my flatmates to manage and log our joint expenses, the app allows users to add, track, and manage entries for items purchased, and calculates how much each person owes. The app also has charts windows and activities pane. 
 
 ### Table of Contents
 

@@ -25,20 +25,26 @@ const Board = ({
   const upperValue = Math.max(...filteredEntries.map((item) => item.price));
   const lowerValue = Math.min(...filteredEntries.map((item) => item.price));
 
-  const getGradientColor = (value) => {
-    // Normalize within the defined range
+  const getGradientColor = (value, clampLowerPercentile = 0.05, clampUpperPercentile = 0.95) => {
+    // Normalize the range while clamping to remove extreme outliers
     const range = upperValue - lowerValue;
-    const normalizedValue = (value - lowerValue) / range;
-
+  
+    // Clamp the value to ignore extreme outliers
+    const clampedValue = Math.max(
+      lowerValue + clampLowerPercentile * range,
+      Math.min(value, lowerValue + clampUpperPercentile * range)
+    );
+  
+    // Calculate normalized value after clamping
+    const normalizedValue = (clampedValue - lowerValue) / range;
+  
     // Handle very low and very high values by assigning specific colors
     if (value < lowerValue) {
-      // Very low value: Blue for extreme lows
       return `rgb(0, 0, 255)`; // Blue for extreme lows
     } else if (value > upperValue) {
-      // Very high value: Dark Red (Purple hue) for extreme highs
-      return `rgb(128, 0, 128)`; // A purplish color for extreme highs
+      return `rgb(128, 0, 128)`; // Purple for extreme highs
     }
-
+  
     // For values within range, interpolate between Green -> Yellow -> Red
     if (normalizedValue <= 0.5) {
       // For first half (Green to Yellow)
@@ -53,7 +59,7 @@ const Board = ({
       const green = Math.round(255 * (1 - ratio)); // Green decreases
       return `rgb(${red}, ${green}, 0)`; // Yellow to Red
     }
-  };
+  };  
 
   return (
     <div className="board">
