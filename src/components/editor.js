@@ -213,7 +213,7 @@ const Editor = ({
                   : "owes"}{" "}
                 <b>
                   ₹
-                  {(updatedEntry.price / updatedEntry.owed_by.length).toFixed(
+                  {Math.ceil(updatedEntry.price / updatedEntry.owed_by.length).toFixed(
                     2
                   )}{" "}
                 </b>
