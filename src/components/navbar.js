@@ -164,6 +164,7 @@ const Navbar = ({
               setLoggedIn(false);
               localStorage.removeItem("token");
               localStorage.removeItem("user");
+              localStorage.removeItem("admin");
             }}
           >
             logout

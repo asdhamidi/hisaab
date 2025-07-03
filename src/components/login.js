@@ -40,8 +40,10 @@ const Login = ({ loadEntries, setloggedIn }) => {
         password: password,
       })
       .then((response) => {
+        console.log(response)
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", username);
+        localStorage.setItem("admin", response.data.admin);
         setloggedIn(true);
         setLoggigIn(false);
         loadEntries();

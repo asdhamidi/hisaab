@@ -57,7 +57,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      loadEntries();  
+      loadEntries();
       setLoggedIn(true);
     }
 
@@ -67,27 +67,45 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      axiosInstance
+        .get("/entries")
+        .then((res) => {
+          setLoadingEntries(false);
+          setEntries(res.data);
+        })
+        .catch((err) => console.error(err));
+    };
+
+    fetchData(); // Fetch on mount
+
+    const interval = setInterval(fetchData, 10000); // Poll every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
+
   return (
     <div className="App">
       {editor === true && (
         <>
-        <Editor
-          makeEntry={makeEntry}
-          setEditor={setEditor}
-          entry={currentEntry}
-          updateEntry={updateEntry}
-          setCurrentEntry={setCurrentEntry}
-          filteredEntries={filteredEntries}
-          users={users}
-          deleteEntry={deleteEntry}
-        />
-        <div className="blur"></div>
+          <Editor
+            makeEntry={makeEntry}
+            setEditor={setEditor}
+            entry={currentEntry}
+            updateEntry={updateEntry}
+            setCurrentEntry={setCurrentEntry}
+            filteredEntries={filteredEntries}
+            users={users}
+            deleteEntry={deleteEntry}
+          />
+          <div className="blur"></div>
         </>
       )}
       {loggedIn === false && (
         <Login setloggedIn={setLoggedIn} loadEntries={loadEntries} />
       )}
-      {loggedIn === true  && (
+      {loggedIn === true && (
         <Board
           entries={entries}
           filteredEntries={filteredEntries}

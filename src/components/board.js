@@ -28,23 +28,23 @@ const Board = ({
   const getGradientColor = (value, clampLowerPercentile = 0.05, clampUpperPercentile = 0.95) => {
     // Normalize the range while clamping to remove extreme outliers
     const range = upperValue - lowerValue;
-  
+
     // Clamp the value to ignore extreme outliers
     const clampedValue = Math.max(
       lowerValue + clampLowerPercentile * range,
       Math.min(value, lowerValue + clampUpperPercentile * range)
     );
-  
+
     // Calculate normalized value after clamping
     const normalizedValue = (clampedValue - lowerValue) / range;
-  
+
     // Handle very low and very high values by assigning specific colors
     if (value < lowerValue) {
       return `rgb(0, 0, 255)`; // Blue for extreme lows
     } else if (value > upperValue) {
       return `rgb(128, 0, 128)`; // Purple for extreme highs
     }
-  
+
     // For values within range, interpolate between Green -> Yellow -> Red
     if (normalizedValue <= 0.5) {
       // For first half (Green to Yellow)
@@ -59,7 +59,7 @@ const Board = ({
       const green = Math.round(255 * (1 - ratio)); // Green decreases
       return `rgb(${red}, ${green}, 0)`; // Yellow to Red
     }
-  };  
+  };
 
   return (
     <div className="board">
@@ -113,7 +113,7 @@ const Board = ({
                 }}
                 className="board-profile"
               >
-                
+
               </div>
               <div className="entry-deets">
                 <div className="entry-items">

@@ -40,7 +40,6 @@ const OweDetails = ({ entries, pop, setPop, users }) => {
     users.forEach((user) => {
       currBalance[user] = Math.ceil(currBalance[user]);
     });
-    console.log(currBalance);
     setBalances(currBalance);
   }
 

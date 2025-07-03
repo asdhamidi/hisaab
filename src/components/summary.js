@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import OweDetails from "./owe-details";
-import Activites from "./activities";
-import Chart from "./stats";
+import AdminScreen from "./admin-screen";
 
 const Summary = ({
   entries,
@@ -13,19 +12,10 @@ const Summary = ({
   setFilteredEntries,
 }) => {
   const [oweScreen, setOwescreen] = useState(false);
-  const [activitesScreen, setActivitesScreen] = useState(false);
-  const [chartsScreen, setChartsScreen] = useState(false);
+  const [adminScreen, setAdminScreen] = useState(false);
 
   return (
     <div className="summary">
-      {activitesScreen && (
-        <Activites
-          entries={entries}
-          setActivitesScreen={setActivitesScreen}
-          activitesScreen={activitesScreen}
-          month={month}
-        />
-      )}
       {oweScreen && (
         <OweDetails
           entries={entries}
@@ -34,12 +24,12 @@ const Summary = ({
           users={users}
         />
       )}
-      {chartsScreen && (
-        <Chart
-          setChartsScreen={setChartsScreen}
-          chartsScreen={chartsScreen}
-          month={month}
+      {adminScreen && (
+        <AdminScreen
           entries={entries}
+          setAdminScreen={setAdminScreen}
+          adminScreen={adminScreen}
+          month={month}
         />
       )}
       <div className="nc1">
@@ -143,52 +133,34 @@ const Summary = ({
           <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
         </svg>
       </div>
-      <div
-        className="summary-comp"
-        onClick={() => {
-          setChartsScreen(!chartsScreen);
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="icon icon-tabler icons-tabler-outline icon-tabler-file-analytics"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-          <path d="M9 17l0 -5" />
-          <path d="M12 17l0 -1" />
-          <path d="M15 17l0 -3" />
-        </svg>
-      </div>
-      <div className="summary-comp">
-        <svg
+      {localStorage.getItem("admin") === 'true' && (
+        <div
+          className="summary-comp"
           onClick={() => {
-            setActivitesScreen(!activitesScreen);
+            setAdminScreen(!adminScreen);
           }}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="icon icon-tabler icons-tabler-outline icon-tabler-activity"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M3 12h4l3 8l4 -16l3 8h4" />
-        </svg>
-      </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-device-desktop-code"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12.5 16h-8.5a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8" />
+            <path d="M7 20h4" />
+            <path d="M9 16v4" />
+            <path d="M20 21l2 -2l-2 -2" />
+            <path d="M17 17l-2 2l2 2" />
+          </svg>
+        </div>
+      )}
     </div>
   );
 };
