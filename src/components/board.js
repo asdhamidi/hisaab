@@ -107,14 +107,14 @@ const Board = ({
                     }
               }
             >
-              <div
-                style={{
-                  backgroundColor: getGradientColor(entry.price),
-                }}
-                className="board-profile"
-              >
-
-              </div>
+            <div className="entry-date">
+                <div>
+                    {new Date(...entry.date.split('/').reverse().map((v,i) => v-(i===1))).toLocaleString('en-US', {month: 'long'})}
+                </div>
+                <div>
+                    {new Date(...entry.date.split('/').reverse().map((v,i) => v-(i===1))).toLocaleString('en-US', {day: 'numeric'})}
+                </div>
+            </div>
               <div className="entry-deets">
                 <div className="entry-items">
                   <em>
@@ -140,7 +140,7 @@ const Board = ({
                       <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
                       <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                     </svg>
-                    {} {"  " + entry.paid_by} • {entry.date}{" "}
+                    {} {"  " + entry.paid_by} {" "}
                     <div
                       style={{
                         color: "red",

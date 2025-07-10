@@ -150,11 +150,6 @@ const Navbar = ({
   return (
     <div className="top">
       <nav>
-        <div className="nav-controls nc2">
-          <button className="logout logd" onClick={handleDownload}>
-            download
-          </button>
-        </div>
 
         <h1>हिसाब</h1>
         <div className="nav-controls nc2">
@@ -167,18 +162,17 @@ const Navbar = ({
               localStorage.removeItem("admin");
             }}
           >
-            logout
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
           </button>
         </div>
       </nav>
       <div className="nav-owe">
         <div className="no-1">
           <div className="summary-comp owe-1">
-            <p className="summary-title">your spent:</p>
             <b>₹{calculateSpent()}</b>
+            <p className="summary-title">you have spent</p>
           </div>
           <div className="summary-comp owe-2">
-            <p className="summary-title">total spending:</p>
             <b>
               ₹
               {filteredEntries.reduce(
@@ -186,21 +180,8 @@ const Navbar = ({
                 0
               )}
             </b>
+            <p className="summary-title">total spending</p>
           </div>
-        </div>
-        <div className="no-2">
-          <button
-            onClick={filterYourEntries}
-            className={`${yourEntries ? "active-filter" : "filter"}`}
-          >
-            your entries
-          </button>
-          <button
-            onClick={filterYourOweEntries}
-            className={`${yourOweEntries ? "active-filter" : "filter"}`}
-          >
-            you owe
-          </button>
         </div>
       </div>
     </div>

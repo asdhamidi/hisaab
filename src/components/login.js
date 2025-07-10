@@ -43,7 +43,8 @@ const Login = ({ loadEntries, setloggedIn }) => {
         console.log(response)
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", username);
-        localStorage.setItem("admin", response.data.admin);
+        if(username ==="asad")
+            localStorage.setItem("admin", 'true');
         setloggedIn(true);
         setLoggigIn(false);
         loadEntries();

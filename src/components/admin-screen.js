@@ -90,14 +90,25 @@ const AdminScreen = ({ entries, adminScreen, setAdminScreen, month }) => {
                         user.name.substring(user.name.length, user.name.length - 1)}
                     </div>
                     <em className="owe-user-name">{user.name}</em>
+                    <div className="profile-glance">
+                        <div className="admin-profile-data">
+                            {user.openedHisaab}
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-login"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M21 12h-13l3 -3" /><path d="M11 15l-3 -3" /></svg>
+                        </div>
+                        <div className="admin-profile-data">
+                            {user.last_entry}
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-pencil-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /><path d="M19 16v6" /><path d="M22 19l-3 3l-3 -3" /></svg>
+                        </div>
+                        <div className="admin-profile-data">
+                            {user.visits}
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trending-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l7 0l0 7" /></svg>
+                        </div>
+                    </div>
                 </div>
                 <div className="admin-profile-info">
-                    <div className="admin-profile-data">last visit: {user.openedHisaab}</div>
-                    <div className="admin-profile-data">last entry: {user.last_entry}</div>
-                    <div className="admin-profile-data">visits this month: {user.visits}</div>
-                    <div className="admin-profile-data">entries this month: {user.no_of_entries}</div>
-                    <div className="admin-profile-data">total spending: {user.total_spend}</div>
-                    <div className="admin-profile-data">average expense price: {user.avg_spend}</div>
+                    <div className="admin-profile-data">entries: <b>{user.no_of_entries}</b></div>
+                    <div className="admin-profile-data">total spending: <b>{user.total_spend}</b></div>
+                    <div className="admin-profile-data">avg expense price: <b>{user.avg_spend}</b></div>
                 </div>
             </div>
         ))}
